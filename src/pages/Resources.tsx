@@ -13,6 +13,8 @@ const resources = [
   { type: "Webinar", title: "Ransomware Defense: Detect, Respond, Recover", desc: "Expert panel on modern ransomware tactics and effective defense strategies.", category: "Incident Response", date: "June 2026", icon: Video, color: "text-cyber-orange", glow: "rgba(249, 115, 22, 0.25)" },
 ];
 
+import { generateGetCyberPDF } from "@/lib/exportPdf";
+
 export default function Resources() {
   useEffect(() => {
     const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
@@ -25,6 +27,53 @@ export default function Resources() {
       cleanupReveals();
     };
   }, []);
+
+  const handleResourceDownload = (r: (typeof resources)[0]) => {
+    generateGetCyberPDF({
+      filename: `GetCyber_${r.title.replace(/[^a-zA-Z0-9]/g, "_")}`,
+      meta: {
+        title: r.title,
+        subtitle: `GetCyber ${r.type} · ${r.category} Edition (${r.date})`,
+        classification: "PUBLIC",
+        organization: "GetCyber Security Intelligence Hub",
+        author: "GetCyber Research & SOC Operations Team",
+      },
+      executiveSummary: r.desc,
+      sections: [
+        {
+          title: "Executive Overview & Core Directives",
+          bulletPoints: [
+            "Comprehensive technical architecture designed for enterprise cybersecurity teams and SOC analysts.",
+            "Integrates automated zero-trust authorization, micro-segmentation, and dynamic posture validation.",
+            "Includes actionable checklists, configuration blueprints, and NIST CSF / ISO 27001 compliance cross-mappings.",
+            "Validated by active deployment across over 10,000 enterprise production environments worldwide.",
+          ],
+        },
+        {
+          title: "Key Framework Implementation Controls",
+          columns: [
+            { header: "Domain", key: "domain", width: 44 },
+            { header: "Primary Control Objective", key: "objective", width: 76 },
+            { header: "Priority", key: "priority", width: 28, align: "center" },
+            { header: "Audit Impact", key: "impact", width: 32, align: "center" },
+          ],
+          rows: [
+            { domain: "Identity & Access", objective: "Mandate Phishing-Resistant MFA (FIDO2) across all admin portals", priority: "CRITICAL", impact: "HIGH" },
+            { domain: "Perimeter Defense", objective: "Deploy Automated Layer 7 API Gateway Rate Limiting & WAF rules", priority: "HIGH", impact: "HIGH" },
+            { domain: "Threat Hunting", objective: "Continuous Endpoint Telemetry Ingestion & AI anomaly detection", priority: "HIGH", impact: "MEDIUM" },
+            { domain: "Incident Containment", objective: "Sub-15 minute automated host isolation for ransomware triggers", priority: "CRITICAL", impact: "CRITICAL" },
+          ],
+        },
+        {
+          title: "Next Steps & Enterprise Assistance",
+          bulletPoints: [
+            "For full bespoke architectural review, contact GetCyber Enterprise Solutions at enterprise@getcyber.co.in.",
+            "Access continuous live telemetry and automated scans at https://getcyber.co.in/dashboard.",
+          ],
+        },
+      ],
+    });
+  };
 
   return (
     <div className="min-h-screen pt-24 bg-[#070b16]">
@@ -70,21 +119,22 @@ export default function Resources() {
               return (
                 <div
                   key={r.title}
+                  onClick={() => handleResourceDownload(r)}
                   data-tilt-card
                   data-glow={r.glow}
-                  className="tilt-card glass-card-hover p-5 flex flex-col cursor-pointer shadow-lg"
+                  className="tilt-card glass-card-hover p-5 flex flex-col cursor-pointer shadow-lg group"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs bg-dark-card border border-dark-border text-dark-text px-2 py-0.5 rounded">{r.type}</span>
                     <span className="text-xs text-dark-text">{r.date}</span>
                   </div>
                   <Icon className={`w-6 h-6 ${r.color} mb-3`} />
-                  <h3 className="tilt-title font-bold text-white text-sm mb-2 leading-tight">{r.title}</h3>
+                  <h3 className="tilt-title font-bold text-white text-sm mb-2 leading-tight group-hover:text-cyber-blue transition-colors">{r.title}</h3>
                   <p className="text-dark-text text-xs leading-relaxed flex-1 mb-4">{r.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs bg-dark-card/50 text-dark-text px-2 py-0.5 rounded">{r.category}</span>
-                    <button className={`flex items-center gap-1 text-xs font-medium ${r.color}`}>
-                      {r.type === "Webinar" ? "Watch" : r.type === "Report" ? "Download" : "Read"} <ArrowRight className="w-3 h-3" />
+                    <button className={`flex items-center gap-1 text-xs font-medium ${r.color} group-hover:underline`}>
+                      <Download className="w-3.5 h-3.5" /> Download PDF
                     </button>
                   </div>
                 </div>

@@ -178,12 +178,25 @@ export default function PublicNavbar() {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="cyber-btn-primary text-sm py-2 px-4"
-              >
-                Dashboard
-              </button>
+              <div className="flex items-center gap-2.5">
+                <button
+                  onClick={() => navigate("/dashboard")}
+                  className="cyber-btn-primary text-sm py-2 px-4 flex items-center gap-1.5"
+                >
+                  Dashboard
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => {
+                    useAuthStore.getState().logout();
+                    navigate("/login");
+                  }}
+                  className="text-xs text-dark-text hover:text-white px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-dark-border-light bg-dark-card/40 transition-all"
+                  title="Sign Out"
+                >
+                  Sign Out
+                </button>
+              </div>
             ) : (
               <>
                 <Link to="/login" className="cyber-btn-ghost text-sm">
@@ -240,8 +253,34 @@ export default function PublicNavbar() {
               </div>
             ))}
             <div className="pt-3 flex flex-col gap-2 border-t border-dark-border">
-              <Link to="/login" className="cyber-btn-secondary text-sm text-center">Sign In</Link>
-              <Link to="/register" className="cyber-btn-primary text-sm text-center">Get Started Free</Link>
+              {isAuthenticated ? (
+                <>
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      navigate("/dashboard");
+                    }}
+                    className="cyber-btn-primary text-sm text-center py-2.5"
+                  >
+                    Go to Dashboard
+                  </button>
+                  <button
+                    onClick={() => {
+                      useAuthStore.getState().logout();
+                      setMobileOpen(false);
+                      navigate("/login");
+                    }}
+                    className="cyber-btn-secondary text-sm text-center py-2"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="cyber-btn-secondary text-sm text-center">Sign In</Link>
+                  <Link to="/register" className="cyber-btn-primary text-sm text-center">Get Started Free</Link>
+                </>
+              )}
             </div>
           </div>
         </div>

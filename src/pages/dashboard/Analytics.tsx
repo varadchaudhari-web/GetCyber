@@ -27,8 +27,64 @@ const kpis = [
   { title: "Compliance Score", value: "82%", trend: 3, color: "text-cyber-blue", desc: "vs last month" },
 ];
 
+import { generateGetCyberPDF } from "@/lib/exportPdf";
+
 export default function Analytics() {
   const { riskTrend } = useDashboardStore();
+
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Security_Analytics_Report_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Enterprise Security Analytics & Telemetry Report",
+        subtitle: "Monthly KPI Trends, MTTR/MTTD Benchmarks & Attack Surface Metrics",
+        classification: "CONFIDENTIAL",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: "Executive analytical telemetry across all monitored systems. Mean Time to Resolve (MTTR) improved by 18% to 4.2 hours; MTTD dropped to 1.8 minutes. Vulnerability closure rate sustained at 87%.",
+      sections: [
+        {
+          title: "Core SOC Key Performance Indicators",
+          metrics: [
+            { label: "MTTR (Resolve)", value: "4.2 hrs", sublabel: "-18% MoM", color: [34, 197, 94] },
+            { label: "MTTD (Detect)", value: "1.8 min", sublabel: "-31% MoM", color: [34, 197, 94] },
+            { label: "Closure Rate", value: "87%", sublabel: "+5% MoM", color: [37, 99, 235] },
+            { label: "False Positives", value: "2.3%", sublabel: "Optimal", color: [6, 182, 212] },
+          ],
+        },
+        {
+          title: "7-Month Security Performance History",
+          columns: [
+            { header: "Month", key: "month", width: 28 },
+            { header: "Open Findings", key: "vulns", width: 36, align: "center" },
+            { header: "Incidents Logged", key: "incidents", width: 36, align: "center" },
+            { header: "Issues Resolved", key: "resolved", width: 36, align: "center" },
+            { header: "Risk Score", key: "riskScore", width: 36, align: "center" },
+          ],
+          rows: monthlyData.map((d) => ({
+            month: `${d.month} 2026`,
+            vulns: d.vulns,
+            incidents: d.incidents,
+            resolved: d.resolved,
+            riskScore: `${d.riskScore} / 100`,
+          })),
+        },
+        {
+          title: "Framework Compliance Scores",
+          columns: [
+            { header: "Security Standard", key: "name", width: 70 },
+            { header: "Compliance Score", key: "value", width: 44, align: "center" },
+            { header: "Status", key: "status", width: 50, align: "center" },
+          ],
+          rows: COMPLIANCE_DATA.map((c) => ({
+            name: c.name,
+            value: `${c.value}%`,
+            status: c.value >= 80 ? "PASS" : "IN PROGRESS",
+          })),
+        },
+      ],
+    });
+  };
 
   return (
     <div className="page-container">
@@ -37,7 +93,7 @@ export default function Analytics() {
           <h1 className="section-header">Security Analytics</h1>
           <p className="section-subheader">Visualize security trends, KPIs, and executive-level insights</p>
         </div>
-        <button className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+        <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
           <Download className="w-4 h-4" /> Export Report
         </button>
       </div>

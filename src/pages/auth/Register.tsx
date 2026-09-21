@@ -18,7 +18,7 @@ export default function Register() {
   const [accountType, setAccountType] = useState<UserType["role"]>("security_analyst");
   const [showPass, setShowPass] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "", org: "", industry: "" });
-  const { loginWithMock, isLoading } = useAuthStore();
+  const { user, isAuthenticated, loginWithMock, logout, isLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const handleFinish = () => {
@@ -41,6 +41,27 @@ export default function Register() {
           <h1 className="text-2xl font-bold text-white mb-2">Create Your Account</h1>
           <p className="text-dark-text text-sm">Join 10,000+ security professionals worldwide</p>
         </div>
+
+        {isAuthenticated && user && (
+          <div className="glass-card p-4 mb-6 border border-cyber-blue/40 bg-cyber-blue/10 text-center animate-fade-in">
+            <p className="text-xs text-dark-text">You are currently signed in as</p>
+            <p className="text-sm font-bold text-white mt-0.5">{user.name} <span className="text-xs font-normal text-cyber-blue">({user.email})</span></p>
+            <div className="flex gap-2 mt-3 justify-center">
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="cyber-btn-primary text-xs py-1.5 px-3"
+              >
+                Go to Dashboard →
+              </button>
+              <button
+                onClick={() => logout()}
+                className="cyber-btn-secondary text-xs py-1.5 px-3"
+              >
+                Sign Out / Switch
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Step indicators */}
         <div className="flex items-center gap-2 mb-8 justify-center">

@@ -19,7 +19,50 @@ const PLATFORM_HEALTH = [
   { service: "Notification Service", status: "degraded", uptime: "98.50%", latency: "250ms" },
 ];
 
+import { generateGetCyberPDF } from "@/lib/exportPdf";
+
 export default function Administration() {
+  const handleExportLogs = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_SOC_Audit_Logs_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "SOC Platform Security & Administrative Audit Trail",
+        subtitle: "Immutable Access Logs, User Actions & Privileged Operations Register",
+        classification: "RESTRICTED",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: "Official record of system authentication events, configuration changes, user role updates, and privileged SOC administrator sessions recorded within the compliance audit window.",
+      sections: [
+        {
+          title: "Audit Trail Statistics",
+          metrics: [
+            { label: "Total Logged Events", value: AUDIT_LOGS.length, color: [37, 99, 235] },
+            { label: "Platform Users", value: TEAM_MEMBERS.length, color: [34, 197, 94] },
+            { label: "Security Anomalies", value: 0, color: [34, 197, 94] },
+            { label: "Log Integrity", value: "Verified SHA-256", color: [6, 182, 212] },
+          ],
+        },
+        {
+          title: "Administrative Action Ledger",
+          columns: [
+            { header: "User / Account", key: "user", width: 44 },
+            { header: "Action Taken", key: "action", width: 48 },
+            { header: "Resource Target", key: "resource", width: 42 },
+            { header: "Origin IP", key: "ip", width: 28, align: "center" },
+            { header: "Date / Time", key: "time", width: 20, align: "center" },
+          ],
+          rows: AUDIT_LOGS.map((log) => ({
+            user: log.user,
+            action: log.action,
+            resource: log.resource,
+            ip: log.ip,
+            time: formatDate(log.timestamp, "date"),
+          })),
+        },
+      ],
+    });
+  };
+
   return (
     <div className="page-container">
       <h1 className="section-header">Administration</h1>
@@ -123,7 +166,7 @@ export default function Administration() {
           <h3 className="font-bold text-white flex items-center gap-2">
             <Activity className="w-4 h-4 text-cyber-yellow" /> Audit Logs
           </h3>
-          <button className="cyber-btn-secondary text-sm py-2 flex items-center gap-1.5">
+          <button onClick={handleExportLogs} className="cyber-btn-secondary text-sm py-2 flex items-center gap-1.5">
             <BarChart3 className="w-3.5 h-3.5" /> Export Logs
           </button>
         </div>

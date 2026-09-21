@@ -151,36 +151,73 @@ export default function Overview() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Risk Trend */}
-        <div className="glass-card p-6 lg:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="font-bold text-white">Risk Score Trend</h3>
-              <p className="text-xs text-dark-text">Risk score vs Security score (7 months)</p>
+        <div className="glass-card p-6 lg:col-span-2 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h3 className="font-bold text-white text-base">Risk Score Trend</h3>
+                <p className="text-xs text-dark-text">Risk score vs Security score (7 months analysis)</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-3 text-xs">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
+                    <span className="text-dark-text">Risk Score</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]" />
+                    <span className="text-dark-text">Security Score</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-cyber-green text-xs font-medium bg-cyber-green/10 border border-cyber-green/20 px-2 py-1 rounded-md">
+                  <TrendingDown className="w-3.5 h-3.5" />
+                  Improving
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-1 text-cyber-green text-xs">
-              <TrendingDown className="w-3.5 h-3.5" />
-              Improving
+
+            <div className="w-full pt-2">
+              <ResponsiveContainer width="100%" height={230}>
+                <AreaChart data={riskTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="riskGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#EF4444" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#EF4444" stopOpacity={0.02} />
+                    </linearGradient>
+                    <linearGradient id="secGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#22C55E" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#22C55E" stopOpacity={0.02} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" tick={{ fill: "#94A3B8", fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#94A3B8", fontSize: 11 }} axisLine={false} tickLine={false} domain={[50, 100]} />
+                  <Tooltip contentStyle={{ background: "#1E293B", border: "1px solid #2D3748", borderRadius: "8px", color: "#F1F5F9" }} />
+                  <Area type="monotone" dataKey="value" stroke="#EF4444" strokeWidth={2.5} fill="url(#riskGrad)" name="Risk Score" />
+                  <Area type="monotone" dataKey="value2" stroke="#22C55E" strokeWidth={2.5} fill="url(#secGrad)" name="Security Score" />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={180}>
-            <AreaChart data={riskTrend}>
-              <defs>
-                <linearGradient id="riskGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="secGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#22C55E" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#22C55E" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="name" tick={{ fill: "#94A3B8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: "#94A3B8", fontSize: 11 }} axisLine={false} tickLine={false} domain={[50, 100]} />
-              <Tooltip contentStyle={{ background: "#1E293B", border: "1px solid #2D3748", borderRadius: "8px", color: "#F1F5F9" }} />
-              <Area type="monotone" dataKey="value" stroke="#EF4444" strokeWidth={2} fill="url(#riskGrad)" name="Risk" />
-              <Area type="monotone" dataKey="value2" stroke="#22C55E" strokeWidth={2} fill="url(#secGrad)" name="Security" />
-            </AreaChart>
-          </ResponsiveContainer>
+
+          {/* Bottom Telemetry Summary Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 mt-3 border-t border-dark-border/60">
+            <div className="bg-dark-card/40 rounded-lg p-2.5 border border-dark-border/40">
+              <p className="text-[11px] text-dark-text">Current Security</p>
+              <p className="text-sm font-bold text-cyber-green mt-0.5">74% <span className="text-[10px] font-normal text-cyber-green/80">(+5%)</span></p>
+            </div>
+            <div className="bg-dark-card/40 rounded-lg p-2.5 border border-dark-border/40">
+              <p className="text-[11px] text-dark-text">Current Risk</p>
+              <p className="text-sm font-bold text-cyber-orange mt-0.5">68 <span className="text-[10px] font-normal text-dark-text">/100</span></p>
+            </div>
+            <div className="bg-dark-card/40 rounded-lg p-2.5 border border-dark-border/40">
+              <p className="text-[11px] text-dark-text">Peak Risk Level</p>
+              <p className="text-sm font-bold text-cyber-red mt-0.5">82 <span className="text-[10px] font-normal text-dark-text">(Jan)</span></p>
+            </div>
+            <div className="bg-dark-card/40 rounded-lg p-2.5 border border-dark-border/40">
+              <p className="text-[11px] text-dark-text">Defense Status</p>
+              <p className="text-sm font-bold text-cyber-blue mt-0.5">Active Monitored</p>
+            </div>
+          </div>
         </div>
 
         {/* Risk Gauge + Vuln Pie */}

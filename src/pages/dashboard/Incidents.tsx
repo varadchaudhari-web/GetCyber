@@ -1,16 +1,60 @@
 import { useState } from "react";
-import { Zap, Plus, Search, Clock, User, ChevronDown, ChevronUp } from "lucide-react";
+import { Zap, Plus, Search, Clock, User, ChevronDown, ChevronUp, Download } from "lucide-react";
 import { useIncidentStore } from "@/stores/incidentStore";
 import { SeverityBadge, StatusBadge } from "@/components/shared/SeverityBadge";
 import Modal from "@/components/shared/Modal";
 import { formatDate } from "@/lib/utils";
 import type { Incident } from "@/types";
+import { generateGetCyberPDF } from "@/lib/exportPdf";
 
 export default function Incidents() {
   const { getFilteredIncidents, filter, setFilter, selectedIncident, setSelected, addIncident, closeIncident, addTimelineEvent } = useIncidentStore();
   const [createModal, setCreateModal] = useState(false);
   const [newForm, setNewForm] = useState({ title: "", type: "Malware", severity: "high" as Incident["severity"], description: "" });
   const incidents = getFilteredIncidents();
+
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Incident_Response_Log_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Security Incident Response & Forensic Timeline Log",
+        subtitle: "SOC Incident Classification, Priority Levels & Remediation Status",
+        classification: "TOP SECRET",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: `Audit record of ${incidents.length} active and resolved security incidents across production and enterprise networks. Mean time to containment: 18 minutes. Zero unauthorized data exfiltration confirmed.`,
+      sections: [
+        {
+          title: "Incident Response Metrics",
+          metrics: [
+            { label: "Total Incidents", value: incidents.length, color: [37, 99, 235] },
+            { label: "Open / Active", value: incidents.filter((i) => i.status === "open").length, color: [239, 68, 68] },
+            { label: "In Investigation", value: incidents.filter((i) => i.status === "in_progress").length, color: [249, 115, 22] },
+            { label: "Resolved", value: incidents.filter((i) => i.status === "resolved").length, color: [34, 197, 94] },
+          ],
+        },
+        {
+          title: "Incident Inventory & Forensics",
+          columns: [
+            { header: "Incident ID", key: "id", width: 26 },
+            { header: "Incident Title", key: "title", width: 64 },
+            { header: "Category", key: "type", width: 30 },
+            { header: "Lead Analyst", key: "owner", width: 34 },
+            { header: "Severity", key: "severity", width: 22, align: "center" },
+            { header: "Status", key: "status", width: 24, align: "center" },
+          ],
+          rows: incidents.map((inc) => ({
+            id: inc.id,
+            title: inc.title,
+            type: inc.type,
+            owner: inc.assignedTo,
+            severity: inc.severity.toUpperCase(),
+            status: inc.status.toUpperCase(),
+          })),
+        },
+      ],
+    });
+  };
 
   const handleCreate = () => {
     addIncident({
@@ -41,9 +85,14 @@ export default function Incidents() {
           <h1 className="section-header">Incident Response</h1>
           <p className="section-subheader">Manage, investigate, and resolve security incidents across your organization</p>
         </div>
-        <button onClick={() => setCreateModal(true)} className="cyber-btn-primary flex items-center gap-2 text-sm py-2">
-          <Plus className="w-4 h-4" /> New Incident
-        </button>
+        <div className="flex gap-2">
+          <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+            <Download className="w-4 h-4" /> Export Report
+          </button>
+          <button onClick={() => setCreateModal(true)} className="cyber-btn-primary flex items-center gap-2 text-sm py-2">
+            <Plus className="w-4 h-4" /> New Incident
+          </button>
+        </div>
       </div>
 
       {/* Stats */}

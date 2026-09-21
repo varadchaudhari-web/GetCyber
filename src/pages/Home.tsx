@@ -152,9 +152,12 @@ export default function Home() {
     }
   };
 
-  const handleDemoLogin = () => {
-    loginWithMock("security_analyst");
-    navigate("/dashboard");
+  const handleDemoClick = () => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -173,14 +176,14 @@ export default function Home() {
         <div className="relative z-[2] w-full max-w-[1920px] 2xl:max-w-[2400px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 2xl:px-28 flex-1 flex flex-col justify-between">
           <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl pt-4 sm:pt-8 lg:pt-10 2xl:pt-16">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#0b1222]/80 border border-white/10 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm 2xl:text-base text-[#4d8dff] mb-6 2xl:mb-8 backdrop-blur-md animate-fade-in shadow-lg">
+            <div className="inline-flex items-center gap-2 bg-[#0b1222]/80 border border-white/10 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm text-[#4d8dff] mb-6 backdrop-blur-md animate-fade-in shadow-lg">
               <div className="w-2 h-2 rounded-full bg-[#31d0aa] animate-pulse" />
               <span className="font-semibold text-[#eaf0ff]">AI-Powered Cybersecurity Platform</span>
               <span className="text-[#93a2c4] hidden sm:inline">· Trusted by 10,000+ Organizations</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black text-white tracking-tight leading-[1.05] mb-6 2xl:mb-8 animate-fade-in preserve-3d">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black text-white tracking-tight leading-[1.05] mb-6 animate-fade-in preserve-3d">
               <span data-depth="1.6" className="block transform-gpu">
                 Defend Your
               </span>
@@ -189,25 +192,25 @@ export default function Home() {
               </span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-[#93a2c4] leading-relaxed mb-8 sm:mb-10 2xl:mb-14 max-w-xl md:max-w-2xl lg:max-w-3xl 2xl:max-w-5xl animate-fade-in">
+            {/* Subtitle - Normal balanced font size */}
+            <p className="text-base sm:text-lg text-[#93a2c4] leading-relaxed mb-8 sm:mb-10 max-w-2xl animate-fade-in">
               GetCyber is the enterprise AI-powered cybersecurity platform that unifies vulnerability assessment, threat intelligence, penetration testing, compliance, and incident response — all in one SOC-grade command center.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 2xl:gap-6 mb-10 sm:mb-14 2xl:mb-20 animate-fade-in">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10 sm:mb-14 animate-fade-in">
               <button
                 onClick={handleGetStarted}
-                className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-base sm:text-lg 2xl:text-xl py-3.5 sm:py-4 2xl:py-5 px-8 sm:px-10 2xl:px-12 rounded-xl 2xl:rounded-2xl shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 2xl:gap-3"
+                className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-base sm:text-lg py-3.5 sm:py-4 px-8 sm:px-10 rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
                 Start Free Trial
-                <ArrowRight className="w-5 h-5 2xl:w-6 2xl:h-6" />
+                <ArrowRight className="w-5 h-5" />
               </button>
               <button
-                onClick={handleDemoLogin}
-                className="bg-[#0b1222]/80 hover:bg-[#0b1222] border border-white/10 hover:border-white/20 text-[#eaf0ff] font-semibold text-base sm:text-lg 2xl:text-xl py-3.5 sm:py-4 2xl:py-5 px-8 sm:px-10 2xl:px-12 rounded-xl 2xl:rounded-2xl backdrop-blur-md transition-all flex items-center justify-center gap-2 2xl:gap-3"
+                onClick={handleDemoClick}
+                className="bg-[#0b1222]/80 hover:bg-[#0b1222] border border-white/10 hover:border-white/20 text-[#eaf0ff] font-semibold text-base sm:text-lg py-3.5 sm:py-4 px-8 sm:px-10 rounded-xl backdrop-blur-md transition-all flex items-center justify-center gap-2"
               >
-                <Play className="w-4 h-4 2xl:w-5 2xl:h-5 fill-current text-[#4d8dff]" />
+                <Play className="w-4 h-4 fill-current text-[#4d8dff]" />
                 View Live Demo
               </button>
             </div>

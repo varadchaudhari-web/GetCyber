@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Database, Plus, Search, Server, Globe, Cloud, Monitor, Wifi, Code } from "lucide-react";
+import { Database, Plus, Search, Server, Globe, Cloud, Monitor, Wifi, Code, Download } from "lucide-react";
 import { useAssetStore } from "@/stores/assetStore";
 import Modal from "@/components/shared/Modal";
 import RiskGauge from "@/components/shared/RiskGauge";
 import { formatDate, getRiskColor } from "@/lib/utils";
 import type { Asset } from "@/types";
+import { generateGetCyberPDF } from "@/lib/exportPdf";
 
 const TYPE_ICONS: Record<string, React.ElementType> = {
   server: Server, webapp: Globe, api: Code, cloud: Cloud,
@@ -33,6 +34,49 @@ export default function Assets() {
   const assets = getFilteredAssets();
   const highRisk = getHighRiskAssets().slice(0, 3);
 
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Asset_Inventory_Audit_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Enterprise Digital Asset & Attack Surface Inventory",
+        subtitle: "Hardware, Web Applications, Cloud Infrastructure & Risk Scores",
+        classification: "CONFIDENTIAL",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: `Inventory catalog of ${assets.length} monitored IT assets. ${assets.filter((a) => a.status === "online").length} assets online and operational. ${assets.filter((a) => a.riskScore >= 70).length} high-risk assets flagged for vulnerability scanning and patch verification.`,
+      sections: [
+        {
+          title: "Asset Surface Key Metrics",
+          metrics: [
+            { label: "Total Assets", value: assets.length, color: [37, 99, 235] },
+            { label: "Online Assets", value: assets.filter((a) => a.status === "online").length, color: [34, 197, 94] },
+            { label: "High Risk", value: assets.filter((a) => a.riskScore >= 70).length, color: [239, 68, 68] },
+            { label: "Patch Required", value: assets.filter((a) => a.patchStatus !== "up_to_date").length, color: [249, 115, 22] },
+          ],
+        },
+        {
+          title: "Asset Directory & Security Posture",
+          columns: [
+            { header: "Asset Name", key: "name", width: 56 },
+            { header: "Type", key: "type", width: 26 },
+            { header: "Environment", key: "env", width: 28 },
+            { header: "Risk Score", key: "risk", width: 22, align: "center" },
+            { header: "Patch Status", key: "patch", width: 30, align: "center" },
+            { header: "State", key: "status", width: 18, align: "center" },
+          ],
+          rows: assets.map((a) => ({
+            name: a.name,
+            type: a.type.toUpperCase(),
+            env: a.environment.toUpperCase(),
+            risk: `${a.riskScore}/100`,
+            patch: a.patchStatus.replace("_", " ").toUpperCase(),
+            status: a.status.toUpperCase(),
+          })),
+        },
+      ],
+    });
+  };
+
   const handleAdd = () => {
     addAsset({ ...newAsset, status: "online", riskScore: Math.floor(Math.random() * 40) + 20, vulnerabilities: 0, lastScanned: new Date().toISOString(), owner: "IT Team", patchStatus: "up_to_date", tags: [] });
     setAddModal(false);
@@ -45,9 +89,14 @@ export default function Assets() {
           <h1 className="section-header">Asset Management</h1>
           <p className="section-subheader">Monitor and manage your entire IT asset inventory and security posture</p>
         </div>
-        <button onClick={() => setAddModal(true)} className="cyber-btn-primary flex items-center gap-2 text-sm py-2">
-          <Plus className="w-4 h-4" /> Add Asset
-        </button>
+        <div className="flex gap-2">
+          <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+            <Download className="w-4 h-4" /> Export Inventory
+          </button>
+          <button onClick={() => setAddModal(true)} className="cyber-btn-primary flex items-center gap-2 text-sm py-2">
+            <Plus className="w-4 h-4" /> Add Asset
+          </button>
+        </div>
       </div>
 
       {/* Stats */}

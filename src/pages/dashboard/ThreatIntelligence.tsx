@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Activity, Search, ExternalLink, Shield, AlertTriangle, Eye } from "lucide-react";
+import { Activity, Search, ExternalLink, Shield, AlertTriangle, Eye, Download } from "lucide-react";
 import { useThreatStore } from "@/stores/threatStore";
 import { SeverityBadge } from "@/components/shared/SeverityBadge";
 import Modal from "@/components/shared/Modal";
 import { formatDate } from "@/lib/utils";
 import type { ThreatIntel } from "@/types";
+import { generateGetCyberPDF } from "@/lib/exportPdf";
 
 const TYPE_COLORS: Record<string, string> = {
   ransomware: "text-cyber-red bg-cyber-red/10 border-cyber-red/30",
@@ -22,6 +23,47 @@ export default function ThreatIntelligence() {
   const [selected, setSelected] = useState<ThreatIntel | null>(null);
   const threats = getFilteredThreats();
 
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Threat_Intelligence_Briefing_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Global Threat Intelligence & Adversary Tracking Briefing",
+        subtitle: "Active Threat Campaigns, IOC Hashes, CVE Mappings & Mitre ATT&CK Matrix",
+        classification: "INTERNAL SOC",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: `SOC threat briefing tracking ${threats.length} intelligence feeds and ${iocs.length} active Indicators of Compromise (IOCs). Immediate perimeter firewall blocks implemented across all known C2 IP addresses.`,
+      sections: [
+        {
+          title: "Threat Landscape Key Metrics",
+          metrics: [
+            { label: "Critical Threat Feeds", value: threats.filter((t) => t.severity === "critical").length, color: [239, 68, 68] },
+            { label: "Active IOC Signatures", value: iocs.length, color: [167, 123, 255] },
+            { label: "High Relevance", value: threats.filter((t) => t.relevance === "high").length, color: [249, 115, 22] },
+            { label: "Total Feeds", value: threats.length, color: [37, 99, 235] },
+          ],
+        },
+        {
+          title: "Adversary Threat Feeds & Campaigns",
+          columns: [
+            { header: "Threat Campaign", key: "title", width: 68 },
+            { header: "Category", key: "type", width: 30 },
+            { header: "Threat Actor", key: "actor", width: 36 },
+            { header: "Severity", key: "severity", width: 22, align: "center" },
+            { header: "Relevance", key: "relevance", width: 24, align: "center" },
+          ],
+          rows: threats.map((t) => ({
+            title: t.title,
+            type: t.type.toUpperCase(),
+            actor: t.source || "Global Feed",
+            severity: t.severity.toUpperCase(),
+            relevance: t.relevance.toUpperCase(),
+          })),
+        },
+      ],
+    });
+  };
+
   return (
     <div className="page-container">
       <div className="flex items-center justify-between">
@@ -29,9 +71,14 @@ export default function ThreatIntelligence() {
           <h1 className="section-header">Threat Intelligence</h1>
           <p className="section-subheader">Real-time global threat feeds, IOC management, and adversary tracking</p>
         </div>
-        <div className="flex items-center gap-2 bg-cyber-red/10 border border-cyber-red/30 px-3 py-2 rounded-lg">
-          <AlertTriangle className="w-4 h-4 text-cyber-red animate-pulse" />
-          <span className="text-sm text-cyber-red font-semibold">{threats.filter((t) => t.severity === "critical").length} Critical Alerts</span>
+        <div className="flex items-center gap-3">
+          <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+            <Download className="w-4 h-4" /> Export Intel
+          </button>
+          <div className="flex items-center gap-2 bg-cyber-red/10 border border-cyber-red/30 px-3 py-2 rounded-lg">
+            <AlertTriangle className="w-4 h-4 text-cyber-red animate-pulse" />
+            <span className="text-sm text-cyber-red font-semibold">{threats.filter((t) => t.severity === "critical").length} Critical Alerts</span>
+          </div>
         </div>
       </div>
 

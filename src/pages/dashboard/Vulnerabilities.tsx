@@ -11,6 +11,8 @@ import { VULN_BY_SEVERITY } from "@/constants/mockData";
 
 const PIE_COLORS = ["#EF4444", "#F97316", "#F59E0B", "#22C55E", "#06B6D4"];
 
+import { generateGetCyberPDF } from "@/lib/exportPdf";
+
 export default function Vulnerabilities() {
   const { getFilteredVulnerabilities, filter, setFilter, isScanning, scanProgress, startScan, resolveVulnerability, updateVulnerability } = useVulnerabilityStore();
   const [selectedVuln, setSelectedVuln] = useState<Vulnerability | null>(null);
@@ -29,6 +31,57 @@ export default function Vulnerabilities() {
     await startScan("webapp-portal.techcorp.com");
   };
 
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Vulnerability_Audit_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Vulnerability Assessment & Attack Surface Audit",
+        subtitle: "Comprehensive CVSS v3.1 Security Findings & Remediation Advisory",
+        classification: "CONFIDENTIAL",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: `This security assessment identifies ${vulns.length} total vulnerability findings across active digital assets (${stats.critical} critical, ${stats.high} high, ${stats.medium} medium). Critical remediation priority is recommended for unpatched remote code execution and privilege escalation vectors.`,
+      sections: [
+        {
+          title: "Vulnerability Severity & Risk Metrics",
+          metrics: [
+            { label: "Total Vulnerabilities", value: vulns.length, color: [37, 99, 235] },
+            { label: "Critical Severity", value: stats.critical, color: [239, 68, 68] },
+            { label: "High Severity", value: stats.high, color: [249, 115, 22] },
+            { label: "Open Findings", value: stats.open, color: [6, 182, 212] },
+          ],
+        },
+        {
+          title: "Detailed Security Findings",
+          columns: [
+            { header: "CVE ID", key: "cve", width: 30 },
+            { header: "Vulnerability Title", key: "title", width: 60 },
+            { header: "Affected Asset", key: "asset", width: 42 },
+            { header: "CVSS", key: "cvss", width: 14, align: "center" },
+            { header: "Severity", key: "severity", width: 20, align: "center" },
+            { header: "Status", key: "status", width: 16, align: "center" },
+          ],
+          rows: vulns.map((v) => ({
+            cve: v.cve || "CVE-2026-PENDING",
+            title: v.title,
+            asset: v.asset,
+            cvss: v.cvssScore,
+            severity: v.severity.toUpperCase(),
+            status: v.status.toUpperCase(),
+          })),
+        },
+        {
+          title: "SOC Remediation Playbook",
+          bulletPoints: [
+            "Deploy emergency hotfix patches for critical SQL injection and RCE endpoints within 24h.",
+            "Enforce Web Application Firewall (WAF) zero-trust rules for all ingress traffic.",
+            "Conduct automated dynamic regression scans following patch deployment to ensure verification.",
+          ],
+        },
+      ],
+    });
+  };
+
   return (
     <div className="page-container">
       <div className="flex items-center justify-between">
@@ -41,7 +94,7 @@ export default function Vulnerabilities() {
             <Play className="w-4 h-4" />
             Run Scan
           </button>
-          <button className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+          <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
             <Download className="w-4 h-4" />
             Export
           </button>

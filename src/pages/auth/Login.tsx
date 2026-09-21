@@ -19,7 +19,7 @@ export default function Login() {
   const [mfaStep, setMfaStep] = useState(false);
   const [mfaCode, setMfaCode] = useState("");
   const [error, setError] = useState("");
-  const { login, loginWithMock, isLoading } = useAuthStore();
+  const { user, isAuthenticated, login, loginWithMock, logout, isLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -57,6 +57,27 @@ export default function Login() {
           <h1 className="text-2xl font-bold text-white mb-2">{mfaStep ? "Two-Factor Authentication" : "Welcome Back"}</h1>
           <p className="text-dark-text text-sm">{mfaStep ? "Enter the 6-digit code from your authenticator app" : "Sign in to your security operations center"}</p>
         </div>
+
+        {isAuthenticated && user && (
+          <div className="glass-card p-4 mb-6 border border-cyber-blue/40 bg-cyber-blue/10 text-center animate-fade-in">
+            <p className="text-xs text-dark-text">You are currently signed in as</p>
+            <p className="text-sm font-bold text-white mt-0.5">{user.name} <span className="text-xs font-normal text-cyber-blue">({user.email})</span></p>
+            <div className="flex gap-2 mt-3 justify-center">
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="cyber-btn-primary text-xs py-1.5 px-3"
+              >
+                Go to Dashboard →
+              </button>
+              <button
+                onClick={() => logout()}
+                className="cyber-btn-secondary text-xs py-1.5 px-3"
+              >
+                Sign Out / Switch
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="glass-card p-8">
           {error && (

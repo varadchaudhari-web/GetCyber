@@ -1,17 +1,59 @@
 import { useState } from "react";
-import { Lock, CheckCircle, XCircle, AlertTriangle, BarChart3 } from "lucide-react";
+import { Lock, CheckCircle, XCircle, AlertTriangle, BarChart3, Download } from "lucide-react";
 import { useComplianceStore } from "@/stores/complianceStore";
 import Modal from "@/components/shared/Modal";
 import { formatDate } from "@/lib/utils";
 import type { ComplianceFramework } from "@/types";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { COMPLIANCE_DATA } from "@/constants/mockData";
+import { generateGetCyberPDF } from "@/lib/exportPdf";
 
 export default function Compliance() {
   const { frameworks, selectedFramework, setSelected } = useComplianceStore();
   const [detailModal, setDetailModal] = useState<ComplianceFramework | null>(null);
 
   const overallScore = Math.round(frameworks.reduce((s, f) => s + f.score, 0) / frameworks.length);
+
+  const handleExportPDF = () => {
+    generateGetCyberPDF({
+      filename: `GetCyber_Compliance_Framework_Audit_${new Date().toISOString().split("T")[0]}`,
+      meta: {
+        title: "Regulatory Compliance & Security Controls Audit",
+        subtitle: "ISO 27001, SOC 2 Type II, NIST CSF & HIPAA Audit Readiness",
+        classification: "CONFIDENTIAL",
+        organization: "TechCorp Industries",
+      },
+      executiveSummary: `Audit assessment for all monitored frameworks. Enterprise aggregate compliance score: ${overallScore}%. High audit readiness confirmed across Access Control, Encryption, and Continuous Incident Response.`,
+      sections: [
+        {
+          title: "Framework Posture Summary",
+          metrics: frameworks.map((f) => ({
+            label: f.name,
+            value: `${f.score}%`,
+            sublabel: (f.status || "compliant").replace("_", " ").toUpperCase(),
+            color: f.score >= 85 ? ([34, 197, 94] as [number, number, number]) : ([37, 99, 235] as [number, number, number]),
+          })),
+        },
+        {
+          title: "Framework Compliance Index",
+          columns: [
+            { header: "Framework", key: "name", width: 50 },
+            { header: "Version", key: "version", width: 30 },
+            { header: "Score", key: "score", width: 26, align: "center" },
+            { header: "Controls Passing", key: "passing", width: 36, align: "center" },
+            { header: "Audit Status", key: "status", width: 38, align: "center" },
+          ],
+          rows: frameworks.map((f) => ({
+            name: f.name,
+            version: f.version || "Current",
+            score: `${f.score}%`,
+            passing: `${f.passedControls ?? 0} / ${f.totalControls ?? 0}`,
+            status: (f.status || "compliant").replace("_", " ").toUpperCase(),
+          })),
+        },
+      ],
+    });
+  };
 
   const statusColors: Record<string, string> = {
     compliant: "text-cyber-green bg-cyber-green/10 border-cyber-green/30",
@@ -28,9 +70,14 @@ export default function Compliance() {
           <h1 className="section-header">Compliance Management</h1>
           <p className="section-subheader">Manage regulatory frameworks, track controls, and prepare for audits</p>
         </div>
-        <div className="text-right">
-          <p className="text-4xl font-black text-cyber-green">{overallScore}%</p>
-          <p className="text-sm text-dark-text">Overall Compliance</p>
+        <div className="flex items-center gap-4">
+          <button onClick={handleExportPDF} className="cyber-btn-secondary flex items-center gap-2 text-sm py-2">
+            <Download className="w-4 h-4" /> Export Audit
+          </button>
+          <div className="text-right">
+            <p className="text-4xl font-black text-cyber-green">{overallScore}%</p>
+            <p className="text-sm text-dark-text">Overall Compliance</p>
+          </div>
         </div>
       </div>
 
