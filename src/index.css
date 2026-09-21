@@ -4,6 +4,15 @@
 
 @layer base {
   :root {
+    --bg: #070b16;
+    --bg-2: #0b1222;
+    --line: rgba(255, 255, 255, 0.10);
+    --ink: #eaf0ff;
+    --muted: #93a2c4;
+    --blue: #4d8dff;
+    --teal: #31d0aa;
+    --violet: #a77bff;
+
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
     --card: 217 33% 17%;
@@ -14,7 +23,6 @@
     --primary-foreground: 210 40% 98%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
     --accent: 142 71% 45%;
     --accent-foreground: 144 61% 20%;
@@ -257,5 +265,60 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .perspective-1100 {
+    perspective: 1100px;
+  }
+
+  .perspective-1200 {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .tilt-card {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .tilt-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      400px circle at var(--mx, -1000px) var(--my, -1000px),
+      var(--card-glow, rgba(77, 141, 255, 0.18)),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .tilt-card:hover::before {
+    opacity: 1;
+  }
+
+  .tilt-title {
+    transform: translateZ(28px);
+    transform-style: preserve-3d;
+  }
+
+  .reveal-header {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-header.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

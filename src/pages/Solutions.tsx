@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { SOLUTIONS } from "@/constants/mockData";
 import * as LucideIcons from "lucide-react";
+import { initTiltCards } from "@/lib/effects/tiltCards";
+import { initReveals } from "@/lib/effects/reveals";
 
 const SECTION_IDS: Record<number, string> = {
   0: "vulnerability",
@@ -31,11 +33,23 @@ export default function Solutions() {
     }
   }, [location]);
 
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
+    const cleanupTilt = initTiltCards(cards);
+    const headers = Array.from(document.querySelectorAll<HTMLElement>(".header-reveal"));
+    const cleanupReveals = initReveals(headers);
+
+    return () => {
+      cleanupTilt();
+      cleanupReveals();
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
       <section className="py-16 text-center" id="top">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 header-reveal">
           <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Security Solutions</p>
           <h1 className="text-5xl font-black text-white mb-4">Every Security Need, One Platform</h1>
           <p className="text-dark-text text-xl max-w-2xl mx-auto">GetCyber unifies all essential cybersecurity capabilities into a single AI-powered platform built for enterprises of every size.</p>
@@ -47,6 +61,8 @@ export default function Solutions() {
             <a
               key={sol.id}
               href={`#${SECTION_IDS[i]}`}
+              data-tilt-card
+              data-glow="rgba(77, 141, 255, 0.25)"
               onClick={(e) => {
                 e.preventDefault();
                 const el = document.getElementById(SECTION_IDS[i]);
@@ -55,7 +71,7 @@ export default function Solutions() {
                   window.scrollTo({ top, behavior: "smooth" });
                 }
               }}
-              className="text-xs bg-dark-card border border-dark-border text-dark-text-bright hover:text-cyber-blue hover:border-cyber-blue/40 px-3 py-1.5 rounded-full transition-all"
+              className="tilt-card text-xs bg-dark-card border border-dark-border text-dark-text-bright hover:text-cyber-blue hover:border-cyber-blue/40 px-4 py-2 rounded-full transition-all"
             >
               {sol.title}
             </a>
@@ -96,7 +112,11 @@ export default function Solutions() {
                 </div>
 
                 <div className={!isEven ? "lg:col-start-1 lg:row-start-1" : ""}>
-                  <div className="glass-card p-6 border-cyber-blue/20">
+                  <div
+                    data-tilt-card
+                    data-glow="rgba(77, 141, 255, 0.28)"
+                    className="tilt-card glass-card p-6 border-cyber-blue/20 cursor-pointer shadow-xl"
+                  >
                     <div className="mb-3 flex items-center gap-2">
                       <div className="w-2.5 h-2.5 rounded-full bg-cyber-red" />
                       <div className="w-2.5 h-2.5 rounded-full bg-cyber-yellow" />

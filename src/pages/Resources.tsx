@@ -1,20 +1,35 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Video, Download, FileText, ArrowRight } from "lucide-react";
+import { initTiltCards } from "@/lib/effects/tiltCards";
+import { initReveals } from "@/lib/effects/reveals";
 
 const resources = [
-  { type: "Guide", title: "Zero Trust Architecture Implementation Guide", desc: "Step-by-step guide to implementing zero trust across your organization.", category: "Architecture", date: "July 2026", icon: FileText, color: "text-cyber-blue" },
-  { type: "Webinar", title: "AI-Powered Threat Hunting: Live Demo", desc: "Watch our SOC experts demonstrate advanced threat hunting techniques using GC-AI.", category: "Training", date: "June 2026", icon: Video, color: "text-cyber-purple" },
-  { type: "Report", title: "2026 Mid-Year Threat Intelligence Report", desc: "Analysis of the most active threat actors, malware families, and attack vectors.", category: "Intelligence", date: "July 2026", icon: Download, color: "text-cyber-red" },
-  { type: "Guide", title: "ISO 27001:2022 Compliance Checklist", desc: "Complete checklist for achieving ISO 27001:2022 certification.", category: "Compliance", date: "May 2026", icon: FileText, color: "text-cyber-green" },
-  { type: "Blog", title: "How to Build a World-Class SOC on a Budget", desc: "Practical advice for security teams building a Security Operations Center.", category: "Operations", date: "July 2026", icon: BookOpen, color: "text-cyber-yellow" },
-  { type: "Webinar", title: "Ransomware Defense: Detect, Respond, Recover", desc: "Expert panel on modern ransomware tactics and effective defense strategies.", category: "Incident Response", date: "June 2026", icon: Video, color: "text-cyber-orange" },
+  { type: "Guide", title: "Zero Trust Architecture Implementation Guide", desc: "Step-by-step guide to implementing zero trust across your organization.", category: "Architecture", date: "July 2026", icon: FileText, color: "text-cyber-blue", glow: "rgba(77, 141, 255, 0.25)" },
+  { type: "Webinar", title: "AI-Powered Threat Hunting: Live Demo", desc: "Watch our SOC experts demonstrate advanced threat hunting techniques using GC-AI.", category: "Training", date: "June 2026", icon: Video, color: "text-cyber-purple", glow: "rgba(167, 123, 255, 0.25)" },
+  { type: "Report", title: "2026 Mid-Year Threat Intelligence Report", desc: "Analysis of the most active threat actors, malware families, and attack vectors.", category: "Intelligence", date: "July 2026", icon: Download, color: "text-cyber-red", glow: "rgba(239, 68, 68, 0.25)" },
+  { type: "Guide", title: "ISO 27001:2022 Compliance Checklist", desc: "Complete checklist for achieving ISO 27001:2022 certification.", category: "Compliance", date: "May 2026", icon: FileText, color: "text-cyber-green", glow: "rgba(49, 208, 170, 0.25)" },
+  { type: "Blog", title: "How to Build a World-Class SOC on a Budget", desc: "Practical advice for security teams building a Security Operations Center.", category: "Operations", date: "July 2026", icon: BookOpen, color: "text-cyber-yellow", glow: "rgba(245, 158, 11, 0.25)" },
+  { type: "Webinar", title: "Ransomware Defense: Detect, Respond, Recover", desc: "Expert panel on modern ransomware tactics and effective defense strategies.", category: "Incident Response", date: "June 2026", icon: Video, color: "text-cyber-orange", glow: "rgba(249, 115, 22, 0.25)" },
 ];
 
 export default function Resources() {
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
+    const cleanupTilt = initTiltCards(cards);
+    const headers = Array.from(document.querySelectorAll<HTMLElement>(".header-reveal"));
+    const cleanupReveals = initReveals(headers);
+
+    return () => {
+      cleanupTilt();
+      cleanupReveals();
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 bg-[#070b16]">
       <section className="py-16 text-center">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-3xl mx-auto px-4 header-reveal">
           <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Resources</p>
           <h1 className="text-5xl font-black text-white mb-4">Security Intelligence Hub</h1>
           <p className="text-dark-text text-xl">Guides, reports, webinars, and tools to elevate your security program.</p>
@@ -26,18 +41,24 @@ export default function Resources() {
           {/* Quick Links */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
             {[
-              { label: "Blog & Articles", href: "/blog", icon: BookOpen, color: "text-cyber-blue" },
-              { label: "Documentation", href: "/documentation", icon: FileText, color: "text-cyber-green" },
-              { label: "Platform Status", href: "/status", icon: "🟢", isEmoji: true },
-              { label: "Support Center", href: "/support", icon: "❓", isEmoji: true },
+              { label: "Blog & Articles", href: "/blog", icon: BookOpen, color: "text-cyber-blue", glow: "rgba(77, 141, 255, 0.25)" },
+              { label: "Documentation", href: "/documentation", icon: FileText, color: "text-cyber-green", glow: "rgba(49, 208, 170, 0.25)" },
+              { label: "Platform Status", href: "/status", icon: "🟢", isEmoji: true, glow: "rgba(34, 197, 94, 0.25)" },
+              { label: "Support Center", href: "/support", icon: "❓", isEmoji: true, glow: "rgba(167, 123, 255, 0.25)" },
             ].map((item) => (
-              <Link key={item.label} to={item.href} className="glass-card-hover p-5 text-center">
+              <Link
+                key={item.label}
+                to={item.href}
+                data-tilt-card
+                data-glow={item.glow}
+                className="tilt-card glass-card-hover p-5 text-center block shadow-lg"
+              >
                 {item.isEmoji ? (
                   <span className="text-3xl block mb-2">{item.icon as string}</span>
                 ) : (
                   (() => { const Icon = item.icon as React.ElementType; return <Icon className={`w-7 h-7 ${item.color} mx-auto mb-2`} />; })()
                 )}
-                <p className="text-sm font-medium text-white">{item.label}</p>
+                <p className="tilt-title text-sm font-medium text-white">{item.label}</p>
               </Link>
             ))}
           </div>
@@ -47,13 +68,18 @@ export default function Resources() {
             {resources.map((r) => {
               const Icon = r.icon;
               return (
-                <div key={r.title} className="glass-card-hover p-5 flex flex-col">
+                <div
+                  key={r.title}
+                  data-tilt-card
+                  data-glow={r.glow}
+                  className="tilt-card glass-card-hover p-5 flex flex-col cursor-pointer shadow-lg"
+                >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs bg-dark-card border border-dark-border text-dark-text px-2 py-0.5 rounded">{r.type}</span>
                     <span className="text-xs text-dark-text">{r.date}</span>
                   </div>
                   <Icon className={`w-6 h-6 ${r.color} mb-3`} />
-                  <h3 className="font-bold text-white text-sm mb-2 leading-tight">{r.title}</h3>
+                  <h3 className="tilt-title font-bold text-white text-sm mb-2 leading-tight">{r.title}</h3>
                   <p className="text-dark-text text-xs leading-relaxed flex-1 mb-4">{r.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs bg-dark-card/50 text-dark-text px-2 py-0.5 rounded">{r.category}</span>
@@ -69,7 +95,7 @@ export default function Resources() {
       </section>
 
       <section className="py-16 bg-dark-surface border-y border-dark-border">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-4 text-center header-reveal">
           <h2 className="text-3xl font-black text-white mb-4">Get Weekly Threat Intelligence</h2>
           <p className="text-dark-text mb-6">Subscribe to GetCyber's weekly threat briefing and stay ahead of emerging threats.</p>
           <div className="flex gap-3 max-w-md mx-auto">

@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Shield, Target, Globe, Heart, Award, Users, ArrowRight } from "lucide-react";
+import { initTiltCards } from "@/lib/effects/tiltCards";
+import { initReveals } from "@/lib/effects/reveals";
 
 const values = [
-  { icon: Shield, title: "Security First", desc: "We apply the same security standards to ourselves that we recommend to our customers.", color: "text-cyber-blue" },
-  { icon: Target, title: "Mission Driven", desc: "Our mission is to make enterprise-grade security accessible to every organization.", color: "text-cyber-red" },
-  { icon: Globe, title: "Global Impact", desc: "Protecting organizations across 180+ countries from modern cyber threats.", color: "text-cyber-green" },
-  { icon: Heart, title: "Customer Obsession", desc: "Every feature we build is driven by the real-world needs of security professionals.", color: "text-cyber-purple" },
+  { icon: Shield, title: "Security First", desc: "We apply the same security standards to ourselves that we recommend to our customers.", color: "text-cyber-blue", glow: "rgba(77, 141, 255, 0.25)" },
+  { icon: Target, title: "Mission Driven", desc: "Our mission is to make enterprise-grade security accessible to every organization.", color: "text-cyber-red", glow: "rgba(239, 68, 68, 0.25)" },
+  { icon: Globe, title: "Global Impact", desc: "Protecting organizations across 180+ countries from modern cyber threats.", color: "text-cyber-green", glow: "rgba(49, 208, 170, 0.25)" },
+  { icon: Heart, title: "Customer Obsession", desc: "Every feature we build is driven by the real-world needs of security professionals.", color: "text-cyber-purple", glow: "rgba(167, 123, 255, 0.25)" },
 ];
 
 const timeline = [
@@ -28,19 +31,31 @@ const awards = [
 ];
 
 const pressItems = [
-  { outlet: "TechCrunch", headline: "GetCyber raises $48M to bring enterprise security to every business", date: "March 2024" },
-  { outlet: "Forbes", headline: "The startup making NSA-grade security affordable for SMBs", date: "August 2024" },
-  { outlet: "Dark Reading", headline: "GetCyber's AI assistant changes how analysts investigate threats", date: "January 2025" },
-  { outlet: "SC Media", headline: "GetCyber named Best Enterprise Security Platform 2026", date: "June 2026" },
+  { outlet: "TechCrunch", headline: "GetCyber raises $48M to bring enterprise security to every business", date: "March 2024", glow: "rgba(49, 208, 170, 0.22)" },
+  { outlet: "Forbes", headline: "The startup making NSA-grade security affordable for SMBs", date: "August 2024", glow: "rgba(77, 141, 255, 0.22)" },
+  { outlet: "Dark Reading", headline: "GetCyber's AI assistant changes how analysts investigate threats", date: "January 2025", glow: "rgba(167, 123, 255, 0.22)" },
+  { outlet: "SC Media", headline: "GetCyber named Best Enterprise Security Platform 2026", date: "June 2026", glow: "rgba(245, 158, 11, 0.22)" },
 ];
 
 export default function About() {
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
+    const cleanupTilt = initTiltCards(cards);
+    const headers = Array.from(document.querySelectorAll<HTMLElement>(".header-reveal"));
+    const cleanupReveals = initReveals(headers);
+
+    return () => {
+      cleanupTilt();
+      cleanupReveals();
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
       <section className="py-16 text-center relative overflow-hidden" id="hero">
-        <div className="absolute inset-0 bg-glow-blue opacity-20" />
-        <div className="relative max-w-4xl mx-auto px-4">
+        <div className="absolute inset-0 bg-glow-blue opacity-20 pointer-events-none" />
+        <div className="relative max-w-4xl mx-auto px-4 header-reveal">
           <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Our Story</p>
           <h1 className="text-5xl font-black text-white mb-6">Making Cybersecurity Accessible to All</h1>
           <p className="text-dark-text text-xl max-w-3xl mx-auto leading-relaxed">
@@ -59,8 +74,13 @@ export default function About() {
               { value: "180+", label: "Countries", color: "text-cyber-purple" },
               { value: "$48M", label: "Series B Raised", color: "text-cyber-yellow" },
             ].map((s) => (
-              <div key={s.label}>
-                <p className={`text-4xl font-black ${s.color}`}>{s.value}</p>
+              <div
+                key={s.label}
+                data-tilt-card
+                data-glow="rgba(77, 141, 255, 0.25)"
+                className="tilt-card p-4 rounded-xl bg-dark-card/40 border border-white/5 cursor-pointer"
+              >
+                <p className={`tilt-title text-4xl font-black ${s.color}`}>{s.value}</p>
                 <p className="text-dark-text mt-1">{s.label}</p>
               </div>
             ))}
@@ -73,7 +93,7 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-black text-white mb-6">Our Mission</h2>
+              <h2 className="text-4xl font-black text-white mb-6 header-reveal">Our Mission</h2>
               <p className="text-dark-text leading-relaxed mb-4">
                 Cyber threats do not discriminate. A mid-size hospital faces the same ransomware gangs as a Fortune 500 bank. A government agency faces the same APT groups as a tech unicorn. Yet the security tools available to protect them are vastly different.
               </p>
@@ -88,9 +108,14 @@ export default function About() {
               {values.map((v) => {
                 const Icon = v.icon;
                 return (
-                  <div key={v.title} className="glass-card p-5">
+                  <div
+                    key={v.title}
+                    data-tilt-card
+                    data-glow={v.glow}
+                    className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                  >
                     <Icon className={`w-6 h-6 ${v.color} mb-3`} />
-                    <h3 className="font-bold text-white text-sm mb-2">{v.title}</h3>
+                    <h3 className="tilt-title font-bold text-white text-sm mb-2">{v.title}</h3>
                     <p className="text-dark-text text-xs leading-relaxed">{v.desc}</p>
                   </div>
                 );
@@ -103,7 +128,7 @@ export default function About() {
       {/* Timeline */}
       <section className="py-20 bg-dark-surface border-y border-dark-border" id="timeline">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 header-reveal">
             <h2 className="text-4xl font-black text-white mb-4">Our Journey</h2>
             <p className="text-dark-text">From a small team of security researchers to a global cybersecurity platform.</p>
           </div>
@@ -118,7 +143,11 @@ export default function About() {
                   <div className="hidden sm:flex w-5 h-5 rounded-full bg-cyber-blue/20 border border-cyber-blue/60 flex-shrink-0 mt-0.5 items-center justify-center">
                     <div className="w-2 h-2 rounded-full bg-cyber-blue" />
                   </div>
-                  <div className="glass-card p-4 flex-1">
+                  <div
+                    data-tilt-card
+                    data-glow="rgba(77, 141, 255, 0.2)"
+                    className="tilt-card glass-card p-4 flex-1 cursor-pointer shadow-md"
+                  >
                     <p className="text-dark-text-bright text-sm leading-relaxed">{item.event}</p>
                   </div>
                 </div>
@@ -131,11 +160,16 @@ export default function About() {
       {/* Awards */}
       <section className="py-20" id="awards">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-black text-white mb-3">Recognition</h2>
+          <h2 className="text-3xl font-black text-white mb-3 header-reveal">Recognition</h2>
           <p className="text-dark-text mb-10">Industry recognition from the world's leading analyst firms.</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {awards.map((award) => (
-              <div key={award} className="glass-card p-4 text-center">
+              <div
+                key={award}
+                data-tilt-card
+                data-glow="rgba(245, 158, 11, 0.25)"
+                className="tilt-card glass-card p-4 text-center cursor-pointer shadow-md"
+              >
                 <Award className="w-5 h-5 text-cyber-yellow mx-auto mb-2" />
                 <p className="text-dark-text-bright text-xs font-medium">{award}</p>
               </div>
@@ -147,15 +181,20 @@ export default function About() {
       {/* Press */}
       <section className="py-20 bg-dark-surface border-y border-dark-border" id="press">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 header-reveal">
             <h2 className="text-3xl font-black text-white mb-3">In The Press</h2>
             <p className="text-dark-text">What the media is saying about GetCyber.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {pressItems.map((item) => (
-              <div key={item.headline} className="glass-card p-5">
+              <div
+                key={item.headline}
+                data-tilt-card
+                data-glow={item.glow}
+                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+              >
                 <p className="text-xs font-bold text-cyber-blue uppercase tracking-wider mb-2">{item.outlet}</p>
-                <p className="text-white font-semibold text-sm leading-snug mb-2">{item.headline}</p>
+                <p className="tilt-title text-white font-semibold text-sm leading-snug mb-2">{item.headline}</p>
                 <p className="text-xs text-dark-text">{item.date}</p>
               </div>
             ))}
@@ -165,7 +204,7 @@ export default function About() {
 
       {/* Careers CTA */}
       <section className="py-16" id="careers-cta">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-4 text-center header-reveal">
           <Users className="w-10 h-10 text-cyber-blue mx-auto mb-4" />
           <h2 className="text-3xl font-black text-white mb-4">Join Our Team</h2>
           <p className="text-dark-text mb-6">Help us build the future of cybersecurity. We are hiring security engineers, researchers, and product managers worldwide.</p>

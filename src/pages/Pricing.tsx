@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle, XCircle, Shield, Zap, Building2, HelpCircle } from "lucide-react";
 import { PRICING_PLANS } from "@/constants/mockData";
+import { initTiltCards } from "@/lib/effects/tiltCards";
+import { initReveals } from "@/lib/effects/reveals";
 
 const faqs = [
   { q: "Can I switch plans anytime?", a: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, with prorated billing adjustments." },
@@ -12,11 +15,23 @@ const faqs = [
 ];
 
 export default function Pricing() {
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
+    const cleanupTilt = initTiltCards(cards);
+    const headers = Array.from(document.querySelectorAll<HTMLElement>(".header-reveal"));
+    const cleanupReveals = initReveals(headers);
+
+    return () => {
+      cleanupTilt();
+      cleanupReveals();
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
       <section className="py-16 text-center">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 header-reveal">
           <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Pricing</p>
           <h1 className="text-5xl font-black text-white mb-4">Simple, Transparent Pricing</h1>
           <p className="text-dark-text text-xl max-w-2xl mx-auto">Start free, scale as you grow. No hidden fees, no per-seat tricks.</p>
@@ -28,9 +43,14 @@ export default function Pricing() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PRICING_PLANS.map((plan) => (
-              <div key={plan.id} className={`glass-card p-8 flex flex-col relative ${plan.popular ? "border-cyber-blue/50" : ""}`}>
+              <div
+                key={plan.id}
+                data-tilt-card
+                data-glow={plan.popular ? "rgba(77, 141, 255, 0.35)" : plan.id === "enterprise" ? "rgba(49, 208, 170, 0.35)" : "rgba(77, 141, 255, 0.2)"}
+                className={`tilt-card glass-card p-8 flex flex-col relative cursor-pointer shadow-xl ${plan.popular ? "border-cyber-blue/50 ring-1 ring-cyber-blue/30" : ""}`}
+              >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyber-blue text-white text-xs font-bold px-4 py-1 rounded-full">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyber-blue text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
                     Most Popular
                   </div>
                 )}
@@ -39,11 +59,11 @@ export default function Pricing() {
                     {plan.id === "free" && <Shield className="w-5 h-5 text-dark-text" />}
                     {plan.id === "professional" && <Zap className="w-5 h-5 text-cyber-blue" />}
                     {plan.id === "enterprise" && <Building2 className="w-5 h-5 text-cyber-green" />}
-                    <h2 className="text-xl font-bold text-white">{plan.name}</h2>
+                    <h2 className="tilt-title text-xl font-bold text-white">{plan.name}</h2>
                   </div>
                   <p className="text-dark-text text-sm mb-4">{plan.description}</p>
                   <div className="flex items-end gap-2">
-                    <span className="text-5xl font-black text-white">${plan.price}</span>
+                    <span className="text-5xl font-black text-white tracking-tight">${plan.price}</span>
                     <span className="text-dark-text mb-2">/{plan.period}</span>
                   </div>
                 </div>
@@ -78,8 +98,12 @@ export default function Pricing() {
       {/* Comparison */}
       <section className="py-16 bg-dark-surface border-y border-dark-border">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-white text-center mb-12">Why GetCyber vs Others?</h2>
-          <div className="glass-card overflow-hidden">
+          <h2 className="text-3xl font-black text-white text-center mb-12 header-reveal">Why GetCyber vs Others?</h2>
+          <div
+            data-tilt-card
+            data-glow="rgba(77, 141, 255, 0.22)"
+            className="tilt-card glass-card overflow-hidden shadow-2xl"
+          >
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-dark-border">
@@ -99,7 +123,7 @@ export default function Pricing() {
                   ["Executive Reporting", true, true],
                   ["On-premise Deployment", true, "Enterprise only"],
                 ].map(([feat, us, others]) => (
-                  <tr key={feat as string} className="border-b border-dark-border/50">
+                  <tr key={feat as string} className="border-b border-dark-border/50 hover:bg-white/[0.02] transition-colors">
                     <td className="p-4 text-dark-text-bright">{feat as string}</td>
                     <td className="p-4 text-center">{us === true ? <CheckCircle className="w-4 h-4 text-cyber-green mx-auto" /> : <span className="text-cyber-blue text-xs">{us}</span>}</td>
                     <td className="p-4 text-center">{others === false ? <XCircle className="w-4 h-4 text-dark-text mx-auto opacity-50" /> : <span className="text-dark-text text-xs">{others as string}</span>}</td>
@@ -114,13 +138,18 @@ export default function Pricing() {
       {/* FAQ */}
       <section className="py-20">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-white text-center mb-12 flex items-center justify-center gap-2">
+          <h2 className="text-3xl font-black text-white text-center mb-12 flex items-center justify-center gap-2 header-reveal">
             <HelpCircle className="w-7 h-7 text-cyber-blue" /> Pricing FAQ
           </h2>
           <div className="space-y-4">
             {faqs.map((faq) => (
-              <div key={faq.q} className="glass-card p-5">
-                <h3 className="font-bold text-white mb-2 text-sm">{faq.q}</h3>
+              <div
+                key={faq.q}
+                data-tilt-card
+                data-glow="rgba(77, 141, 255, 0.22)"
+                className="tilt-card glass-card p-5 cursor-pointer shadow-md"
+              >
+                <h3 className="tilt-title font-bold text-white mb-2 text-sm">{faq.q}</h3>
                 <p className="text-dark-text text-sm leading-relaxed">{faq.a}</p>
               </div>
             ))}
