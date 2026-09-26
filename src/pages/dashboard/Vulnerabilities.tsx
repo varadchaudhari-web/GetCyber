@@ -176,39 +176,49 @@ export default function Vulnerabilities() {
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto">
+          <div className="table-scroll-container rounded-lg border border-dark-border/40">
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Vulnerability</th>
-                  <th>Asset</th>
-                  <th>Severity</th>
-                  <th>CVSS</th>
-                  <th>Status</th>
-                  <th>Discovered</th>
-                  <th>Actions</th>
+                  <th className="min-w-[240px]">Vulnerability</th>
+                  <th className="min-w-[140px]">Asset</th>
+                  <th className="min-w-[100px] text-center">Severity</th>
+                  <th className="min-w-[70px] text-center">CVSS</th>
+                  <th className="min-w-[110px] text-center">Status</th>
+                  <th className="min-w-[100px]">Discovered</th>
+                  <th className="min-w-[110px] text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {vulns.map((v) => (
-                  <tr key={v.id} className="cursor-pointer" onClick={() => setSelectedVuln(v)}>
-                    <td>
+                  <tr key={v.id} className="cursor-pointer hover:bg-white/[0.02] transition-colors" onClick={() => setSelectedVuln(v)}>
+                    <td className="min-w-[240px]">
                       <div className="max-w-xs">
-                        <p className="text-white font-medium text-sm truncate">{v.title}</p>
+                        <p className="text-white font-medium text-sm truncate" title={v.title}>{v.title}</p>
                         {v.cve && <span className="text-xs text-cyber-blue font-mono">{v.cve}</span>}
                       </div>
                     </td>
-                    <td><span className="text-xs font-mono text-dark-text-bright">{v.asset}</span></td>
-                    <td><SeverityBadge severity={v.severity} /></td>
-                    <td><ScoreBadge score={v.cvssScore} /></td>
-                    <td><StatusBadge status={v.status} /></td>
-                    <td><span className="text-xs text-dark-text">{formatDate(v.discoveredAt, "relative")}</span></td>
-                    <td>
-                      <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                    <td className="min-w-[140px]">
+                      <span className="text-xs font-mono text-dark-text-bright">{v.asset}</span>
+                    </td>
+                    <td className="min-w-[100px] text-center">
+                      <SeverityBadge severity={v.severity} />
+                    </td>
+                    <td className="min-w-[70px] text-center">
+                      <ScoreBadge score={v.cvssScore} />
+                    </td>
+                    <td className="min-w-[110px] text-center">
+                      <StatusBadge status={v.status} />
+                    </td>
+                    <td className="min-w-[100px]">
+                      <span className="text-xs text-dark-text">{formatDate(v.discoveredAt, "relative")}</span>
+                    </td>
+                    <td className="min-w-[110px] text-right">
+                      <div className="flex items-center justify-end gap-2" onClick={(e) => e.stopPropagation()}>
                         {v.status !== "resolved" && (
-                          <button onClick={() => resolveVulnerability(v.id)} className="text-xs text-cyber-green hover:text-cyber-green-light transition-colors">Resolve</button>
+                          <button onClick={() => resolveVulnerability(v.id)} className="text-xs text-cyber-green hover:text-cyber-green-light px-2 py-1 rounded bg-cyber-green/10 hover:bg-cyber-green/20 transition-all">Resolve</button>
                         )}
-                        <button onClick={() => updateVulnerability(v.id, { status: "in_progress" })} className="text-xs text-cyber-blue hover:text-cyber-blue-light transition-colors">Assign</button>
+                        <button onClick={() => updateVulnerability(v.id, { status: "in_progress" })} className="text-xs text-cyber-blue hover:text-cyber-blue-light px-2 py-1 rounded bg-cyber-blue/10 hover:bg-cyber-blue/20 transition-all">Assign</button>
                       </div>
                     </td>
                   </tr>

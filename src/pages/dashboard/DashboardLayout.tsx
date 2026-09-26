@@ -17,7 +17,7 @@ export default function DashboardLayout() {
   return (
     <div className="flex h-screen overflow-hidden bg-dark-bg">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden min-w-0">
         <Outlet />
       </main>
       <NotificationPanel />

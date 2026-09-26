@@ -119,22 +119,22 @@ export default function Administration() {
           </h3>
           <button className="cyber-btn-primary text-sm py-2">+ Invite User</button>
         </div>
-        <div className="overflow-x-auto">
+        <div className="table-scroll-container rounded-lg border border-dark-border/40">
           <table className="data-table">
             <thead>
               <tr>
-                <th>User</th>
-                <th>Role</th>
-                <th>Department</th>
-                <th>MFA</th>
-                <th>Last Active</th>
-                <th>Actions</th>
+                <th className="min-w-[200px]">User</th>
+                <th className="min-w-[140px]">Role</th>
+                <th className="min-w-[120px]">Department</th>
+                <th className="min-w-[100px]">MFA</th>
+                <th className="min-w-[110px]">Last Active</th>
+                <th className="min-w-[110px] text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {TEAM_MEMBERS.map((m) => (
-                <tr key={m.id}>
-                  <td>
+                <tr key={m.id} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="min-w-[200px]">
                     <div className="flex items-center gap-2">
                       <img src={m.avatar} alt={m.name} className="w-7 h-7 rounded-full object-cover" />
                       <div>
@@ -143,14 +143,14 @@ export default function Administration() {
                       </div>
                     </div>
                   </td>
-                  <td><span className="text-xs bg-dark-card border border-dark-border text-dark-text-bright px-2 py-0.5 rounded">{formatRoleLabel(m.role)}</span></td>
-                  <td><span className="text-xs text-dark-text">{m.department}</span></td>
-                  <td>{m.mfaEnabled ? <span className="text-xs text-cyber-green">✓ Enabled</span> : <span className="text-xs text-cyber-red">✗ Disabled</span>}</td>
-                  <td><span className="text-xs text-dark-text">{formatDate(m.lastActive, "relative")}</span></td>
-                  <td>
-                    <div className="flex gap-2">
-                      <button className="text-xs text-cyber-blue hover:text-cyber-blue-light transition-colors">Edit</button>
-                      <button className="text-xs text-cyber-red hover:text-cyber-red transition-colors">Suspend</button>
+                  <td className="min-w-[140px]"><span className="text-xs bg-dark-card border border-dark-border text-dark-text-bright px-2 py-0.5 rounded whitespace-nowrap">{formatRoleLabel(m.role)}</span></td>
+                  <td className="min-w-[120px]"><span className="text-xs text-dark-text">{m.department}</span></td>
+                  <td className="min-w-[100px]">{m.mfaEnabled ? <span className="text-xs text-cyber-green whitespace-nowrap">✓ Enabled</span> : <span className="text-xs text-cyber-red whitespace-nowrap">✗ Disabled</span>}</td>
+                  <td className="min-w-[110px]"><span className="text-xs text-dark-text">{formatDate(m.lastActive, "relative")}</span></td>
+                  <td className="min-w-[110px] text-right">
+                    <div className="flex justify-end gap-2">
+                      <button className="text-xs text-cyber-blue hover:text-cyber-blue-light px-2 py-1 rounded bg-cyber-blue/10 hover:bg-cyber-blue/20 transition-all">Edit</button>
+                      <button className="text-xs text-cyber-red hover:text-cyber-red px-2 py-1 rounded bg-cyber-red/10 hover:bg-cyber-red/20 transition-all">Suspend</button>
                     </div>
                   </td>
                 </tr>

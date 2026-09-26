@@ -149,39 +149,39 @@
   }
 
   .severity-critical {
-    @apply bg-cyber-red/20 text-cyber-red border border-cyber-red/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-red/20 text-cyber-red border border-cyber-red/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .severity-high {
-    @apply bg-cyber-orange/20 text-cyber-orange border border-cyber-orange/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-orange/20 text-cyber-orange border border-cyber-orange/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .severity-medium {
-    @apply bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .severity-low {
-    @apply bg-cyber-green/20 text-cyber-green border border-cyber-green/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-green/20 text-cyber-green border border-cyber-green/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .severity-info {
-    @apply bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .status-open {
-    @apply bg-cyber-red/20 text-cyber-red border border-cyber-red/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-red/20 text-cyber-red border border-cyber-red/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .status-in-progress {
-    @apply bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .status-resolved {
-    @apply bg-cyber-green/20 text-cyber-green border border-cyber-green/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-cyber-green/20 text-cyber-green border border-cyber-green/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .status-closed {
-    @apply bg-dark-text/20 text-dark-text border border-dark-border px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center justify-center whitespace-nowrap bg-dark-text/20 text-dark-text border border-dark-border px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
 
   .terminal-text {
@@ -207,15 +207,40 @@
   }
 
   .data-table {
-    @apply w-full text-sm;
+    @apply w-full text-sm min-w-[760px] table-auto;
   }
 
   .data-table th {
-    @apply text-dark-text text-xs uppercase tracking-wider font-semibold px-4 py-3 text-left border-b border-dark-border;
+    @apply text-dark-text text-xs uppercase tracking-wider font-semibold px-4 py-3 text-left border-b border-dark-border whitespace-nowrap;
   }
 
   .data-table td {
-    @apply px-4 py-3 text-dark-text-bright border-b border-dark-border/50;
+    @apply px-4 py-3 text-dark-text-bright border-b border-dark-border/50 whitespace-nowrap;
+  }
+
+  .table-scroll-container {
+    @apply w-full overflow-x-auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2D3748 #0F172A;
+  }
+
+  .table-scroll-container::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .table-scroll-container::-webkit-scrollbar-track {
+    background: #0F172A;
+    border-radius: 4px;
+  }
+
+  .table-scroll-container::-webkit-scrollbar-thumb {
+    background: #2D3748;
+    border-radius: 4px;
+  }
+
+  .table-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
   }
 
   .data-table tr:hover td {

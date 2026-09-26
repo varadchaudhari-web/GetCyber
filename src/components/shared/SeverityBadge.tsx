@@ -13,7 +13,7 @@ interface StatusBadgeProps {
 
 export function SeverityBadge({ severity, className }: SeverityBadgeProps) {
   return (
-    <span className={cn(getSeverityClass(severity), "capitalize", className)}>
+    <span className={cn(getSeverityClass(severity), "capitalize inline-flex items-center justify-center whitespace-nowrap", className)}>
       {severity}
     </span>
   );
@@ -21,7 +21,7 @@ export function SeverityBadge({ severity, className }: SeverityBadgeProps) {
 
 export function StatusBadge({ status, className }: StatusBadgeProps) {
   return (
-    <span className={cn(getStatusClass(status), className)}>
+    <span className={cn(getStatusClass(status), "inline-flex items-center justify-center whitespace-nowrap", className)}>
       {formatStatusLabel(status)}
     </span>
   );
@@ -35,7 +35,7 @@ export function ScoreBadge({ score, className }: { score: number; className?: st
     return "bg-cyber-green/20 text-cyber-green border border-cyber-green/30";
   };
   return (
-    <span className={cn("px-2.5 py-0.5 rounded-full text-xs font-bold font-mono", getScoreClass(score), className)}>
+    <span className={cn("px-2.5 py-0.5 rounded-full text-xs font-bold font-mono inline-flex items-center justify-center whitespace-nowrap", getScoreClass(score), className)}>
       {score.toFixed(1)}
     </span>
   );
