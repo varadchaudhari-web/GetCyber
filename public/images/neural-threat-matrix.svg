@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgNeural" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070b16"/>
+      <stop offset="60%" stop-color="#0d1127"/>
+      <stop offset="100%" stop-color="#050711"/>
+    </linearGradient>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a77bff"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4d8dff"/>
+    </linearGradient>
+    <filter id="purpleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgNeural)"/>
+
+  <!-- Neural Mesh Grid -->
+  <g opacity="0.35">
+    <line x1="100" y1="120" x2="250" y2="180" stroke="#a77bff" stroke-width="1.2"/>
+    <line x1="250" y1="180" x2="400" y2="140" stroke="#6366f1" stroke-width="1.5"/>
+    <line x1="400" y1="140" x2="550" y2="190" stroke="#4d8dff" stroke-width="1.2"/>
+    <line x1="550" y1="190" x2="700" y2="130" stroke="#31d0aa" stroke-width="1.2"/>
+
+    <line x1="250" y1="180" x2="320" y2="300" stroke="#a77bff" stroke-width="1.5"/>
+    <line x1="400" y1="140" x2="400" y2="280" stroke="#6366f1" stroke-width="2"/>
+    <line x1="550" y1="190" x2="480" y2="300" stroke="#38bdf8" stroke-width="1.5"/>
+
+    <line x1="320" y1="300" x2="400" y2="280" stroke="#a77bff" stroke-width="1.5"/>
+    <line x1="400" y1="280" x2="480" y2="300" stroke="#31d0aa" stroke-width="1.5"/>
+
+    <line x1="320" y1="300" x2="400" y2="400" stroke="#6366f1" stroke-width="1.2"/>
+    <line x1="480" y1="300" x2="400" y2="400" stroke="#4d8dff" stroke-width="1.2"/>
+  </g>
+
+  <!-- Central AI Core -->
+  <circle cx="400" cy="280" r="70" fill="#a77bff" opacity="0.12" filter="url(#purpleGlow)"/>
+  <circle cx="400" cy="280" r="45" fill="#0b1222" stroke="url(#purpleGradient)" stroke-width="3" filter="url(#purpleGlow)"/>
+  
+  <!-- Neural Core Hexagon -->
+  <polygon points="400,250 426,265 426,295 400,310 374,295 374,265" fill="#6366f1" fill-opacity="0.3" stroke="#31d0aa" stroke-width="1.5"/>
+  <circle cx="400" cy="280" r="8" fill="#31d0aa" filter="url(#purpleGlow)"/>
+
+  <!-- Outer Satellite Nodes with Glow -->
+  <circle cx="250" cy="180" r="9" fill="#070b16" stroke="#a77bff" stroke-width="2"/>
+  <circle cx="250" cy="180" r="4" fill="#a77bff" filter="url(#purpleGlow)"/>
+
+  <circle cx="400" cy="140" r="11" fill="#070b16" stroke="#4d8dff" stroke-width="2"/>
+  <circle cx="400" cy="140" r="5" fill="#4d8dff" filter="url(#purpleGlow)"/>
+
+  <circle cx="550" cy="190" r="9" fill="#070b16" stroke="#31d0aa" stroke-width="2"/>
+  <circle cx="550" cy="190" r="4" fill="#31d0aa" filter="url(#purpleGlow)"/>
+
+  <circle cx="320" cy="300" r="10" fill="#070b16" stroke="#6366f1" stroke-width="2"/>
+  <circle cx="320" cy="300" r="4" fill="#6366f1"/>
+
+  <circle cx="480" cy="300" r="10" fill="#070b16" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="480" cy="300" r="4" fill="#38bdf8"/>
+
+  <!-- Scanning Radar Wave -->
+  <path d="M 400 280 L 520 200 A 156 156 0 0 0 400 124 Z" fill="#4d8dff" opacity="0.08"/>
+
+  <!-- Threat Analysis Badge -->
+  <rect x="270" y="420" width="260" height="32" rx="16" fill="#0b1222" stroke="rgba(167, 123, 255, 0.3)"/>
+  <circle cx="290" cy="436" r="4" fill="#a77bff" filter="url(#purpleGlow)"/>
+  <text x="305" y="440" fill="#eaf0ff" font-family="monospace" font-size="11" font-weight="bold">AI THREAT MATRIX ACTIVE</text>
+</svg>

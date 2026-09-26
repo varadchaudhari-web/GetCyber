@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield, User, Mail, Lock, Building2, CheckCircle, Loader2, Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/stores/authStore";
+import { GoogleIcon, MicrosoftIcon } from "@/components/icons/BrandIcons";
+import { toast } from "sonner";
 import type { User as UserType } from "@/types";
 
 const ACCOUNT_TYPES: { role: UserType["role"]; title: string; desc: string; icon: string }[] = [
@@ -26,20 +28,32 @@ export default function Register() {
     navigate("/dashboard");
   };
 
+  const handleSSOSignup = (provider: "Microsoft" | "Google") => {
+    toast.success(`Fast provisioning with ${provider} SSO...`);
+    setTimeout(() => {
+      loginWithMock(accountType);
+      navigate("/dashboard");
+    }, 600);
+  };
+
   const update = (field: string, value: string) => setForm((p) => ({ ...p, [field]: value }));
 
   return (
     <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-10 h-10 bg-cyber-blue/20 rounded-xl flex items-center justify-center border border-cyber-blue/40">
               <Shield className="w-5 h-5 text-cyber-blue" />
             </div>
             <span className="font-bold text-2xl text-white">Get<span className="text-gradient-blue">Cyber</span></span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Create Your Account</h1>
-          <p className="text-dark-text text-sm">Join 10,000+ security professionals worldwide</p>
+          <p className="text-dark-text text-sm mb-3">Join 10,000+ security professionals worldwide</p>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyber-green/10 border border-cyber-green/25 text-[11px] font-mono text-cyber-green">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-green animate-pulse" />
+            <span>Free 14-Day Enterprise Trial • No Credit Card Required</span>
+          </div>
         </div>
 
         {isAuthenticated && user && (
@@ -94,6 +108,32 @@ export default function Register() {
                   {accountType === at.role && <CheckCircle className="w-4 h-4 text-cyber-blue ml-auto" />}
                 </button>
               ))}
+
+              <div className="pt-4">
+                <div className="flex items-center gap-3 my-3">
+                  <div className="flex-1 h-px bg-dark-border" />
+                  <span className="text-dark-text text-xs tracking-wider uppercase font-medium">Or instant sign up with</span>
+                  <div className="flex-1 h-px bg-dark-border" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => handleSSOSignup("Microsoft")}
+                    className="cyber-btn-secondary py-2.5 px-3 text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-[#00a4ef]/50 hover:bg-[#00a4ef]/10 transition-all group"
+                  >
+                    <MicrosoftIcon className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="font-medium text-white">Microsoft</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSSOSignup("Google")}
+                    className="cyber-btn-secondary py-2.5 px-3 text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-[#4285f4]/50 hover:bg-[#4285f4]/10 transition-all group"
+                  >
+                    <GoogleIcon className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="font-medium text-white">Google</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 

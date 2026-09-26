@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090510"/>
+      <stop offset="50%" stop-color="#180a1d"/>
+      <stop offset="100%" stop-color="#0d0414"/>
+    </linearGradient>
+    <linearGradient id="accentRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3366" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#f43f5e" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgRed)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#ff3366" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="450" x2="800" y2="450"/>
+    <line x1="80" y1="0" x2="80" y2="500"/>
+    <line x1="160" y1="0" x2="160" y2="500"/>
+    <line x1="240" y1="0" x2="240" y2="500"/>
+    <line x1="320" y1="0" x2="320" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="480" y1="0" x2="480" y2="500"/>
+    <line x1="560" y1="0" x2="560" y2="500"/>
+    <line x1="640" y1="0" x2="640" y2="500"/>
+    <line x1="720" y1="0" x2="720" y2="500"/>
+  </g>
+
+  <!-- Radar targeting reticles -->
+  <circle cx="400" cy="240" r="180" fill="none" stroke="#ff3366" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="6,6"/>
+  <circle cx="400" cy="240" r="130" fill="none" stroke="#f43f5e" stroke-width="1.5" stroke-opacity="0.35"/>
+  <circle cx="400" cy="240" r="80" fill="#ff3366" fill-opacity="0.05" stroke="#ff3366" stroke-width="2" stroke-opacity="0.6"/>
+  <circle cx="400" cy="240" r="25" fill="#f43f5e" fill-opacity="0.2" stroke="#ff3366" stroke-width="2" filter="url(#glowRed)"/>
+
+  <!-- Scanning Sweep Beam -->
+  <path d="M 400 240 L 580 160 A 180 180 0 0 0 400 60 Z" fill="url(#laserGrad)" opacity="0.45"/>
+
+  <!-- Target crosshairs -->
+  <line x1="400" y1="40" x2="400" y2="440" stroke="#ff3366" stroke-opacity="0.25" stroke-width="1"/>
+  <line x1="200" y1="240" x2="600" y2="240" stroke="#ff3366" stroke-opacity="0.25" stroke-width="1"/>
+
+  <!-- Exploit / Attack Path Vectors -->
+  <path d="M 180 340 L 290 280 L 350 310 L 400 240" fill="none" stroke="#ff3366" stroke-width="2.5" stroke-dasharray="8,4" filter="url(#glowRed)"/>
+  <circle cx="180" cy="340" r="6" fill="#ff3366"/>
+  <circle cx="290" cy="280" r="5" fill="#f43f5e"/>
+  <circle cx="350" cy="310" r="5" fill="#a855f7"/>
+
+  <path d="M 620 120 L 530 180 L 470 160 L 400 240" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="6,4" filter="url(#glowRed)"/>
+  <circle cx="620" cy="120" r="6" fill="#a855f7"/>
+  <circle cx="530" cy="180" r="5" fill="#ff3366"/>
+
+  <!-- Cyber Node telemetry overlay tags -->
+  <g font-family="monospace" font-size="11" fill="#f43f5e" opacity="0.85">
+    <rect x="130" y="70" width="160" height="40" rx="6" fill="#130718" stroke="#ff3366" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="140" y="88" fill="#ff3366" font-weight="bold">TARGET_HOST: 0x88F</text>
+    <text x="140" y="102" fill="#fda4af">CVE-2026-0941 EXPLOITED</text>
+
+    <rect x="520" y="370" width="170" height="40" rx="6" fill="#130718" stroke="#a855f7" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="530" y="388" fill="#a855f7" font-weight="bold">PAYLOAD INJECTED</text>
+    <text x="530" y="402" fill="#e9d5ff">ZERO-DAY SIMULATION</text>
+  </g>
+
+  <!-- Central Title -->
+  <text x="400" y="465" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#fda4af" letter-spacing="3">
+    AUTONOMOUS RED-TEAM &amp; ADVERSARY EMULATION
+  </text>
+</svg>

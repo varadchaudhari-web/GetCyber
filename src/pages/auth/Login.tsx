@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Shield, Eye, EyeOff, Loader2, Lock, Mail, AlertCircle } from "lucide-react";
+import { Shield, Eye, EyeOff, Loader2, Lock, Mail, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useAuthStore } from "@/stores/authStore";
+import { GoogleIcon, MicrosoftIcon } from "@/components/icons/BrandIcons";
+import { toast } from "sonner";
 import type { User } from "@/types";
 
 const DEMO_ROLES: { role: User["role"]; label: string; color: string }[] = [
@@ -43,19 +45,33 @@ export default function Login() {
     navigate("/dashboard");
   };
 
+  const handleSSOLogin = (provider: "Microsoft" | "Google") => {
+    toast.success(`Authenticating securely with ${provider} SSO...`);
+    setTimeout(() => {
+      loginWithMock("security_analyst");
+      navigate("/dashboard");
+    }, 600);
+  };
+
   return (
     <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-10 h-10 bg-cyber-blue/20 rounded-xl flex items-center justify-center border border-cyber-blue/40">
               <Shield className="w-5 h-5 text-cyber-blue" />
             </div>
             <span className="font-bold text-2xl text-white">Get<span className="text-gradient-blue">Cyber</span></span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">{mfaStep ? "Two-Factor Authentication" : "Welcome Back"}</h1>
-          <p className="text-dark-text text-sm">{mfaStep ? "Enter the 6-digit code from your authenticator app" : "Sign in to your security operations center"}</p>
+          <p className="text-dark-text text-sm mb-3">
+            {mfaStep ? "Enter the 6-digit code from your authenticator app" : "Sign in to your AI-powered security operations center"}
+          </p>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyber-blue/10 border border-cyber-blue/25 text-[11px] font-mono text-cyber-blue">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-green animate-pulse" />
+            <span>SOC 2 Type II & Zero-Trust Certified Portal</span>
+          </div>
         </div>
 
         {isAuthenticated && user && (
@@ -149,9 +165,14 @@ export default function Login() {
               </div>
             )}
 
-            <button type="submit" className="cyber-btn-primary w-full flex items-center justify-center gap-2 py-3" disabled={isLoading}>
+            <button type="submit" className="cyber-btn-primary w-full flex items-center justify-center gap-2 py-3 shadow-lg hover:shadow-blue-600/40" disabled={isLoading}>
               {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Authenticating...</> : (mfaStep ? "Verify & Access Dashboard" : "Sign In Securely")}
             </button>
+
+            <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#93a2c4] pt-1">
+              <Lock className="w-3 h-3 text-[#31d0aa]" />
+              <span>256-bit SSL Encrypted • Single Sign-On Ready</span>
+            </div>
           </form>
 
           {/* SSO */}
@@ -159,15 +180,25 @@ export default function Login() {
             <>
               <div className="flex items-center gap-3 my-5">
                 <div className="flex-1 h-px bg-dark-border" />
-                <span className="text-dark-text text-xs">OR SIGN IN WITH</span>
+                <span className="text-dark-text text-xs tracking-wider uppercase font-medium">Or continue with</span>
                 <div className="flex-1 h-px bg-dark-border" />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <button className="cyber-btn-secondary py-2.5 text-sm flex items-center justify-center gap-2">
-                  <span>🔷</span> Microsoft SSO
+                <button
+                  type="button"
+                  onClick={() => handleSSOLogin("Microsoft")}
+                  className="cyber-btn-secondary py-2.5 px-3 text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-[#00a4ef]/50 hover:bg-[#00a4ef]/10 transition-all group"
+                >
+                  <MicrosoftIcon className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="font-medium text-white">Microsoft</span>
                 </button>
-                <button className="cyber-btn-secondary py-2.5 text-sm flex items-center justify-center gap-2">
-                  <span>🔴</span> Google SSO
+                <button
+                  type="button"
+                  onClick={() => handleSSOLogin("Google")}
+                  className="cyber-btn-secondary py-2.5 px-3 text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-[#4285f4]/50 hover:bg-[#4285f4]/10 transition-all group"
+                >
+                  <GoogleIcon className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="font-medium text-white">Google</span>
                 </button>
               </div>
             </>

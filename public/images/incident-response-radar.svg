@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgIR" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050e14"/>
+      <stop offset="50%" stop-color="#081b26"/>
+      <stop offset="100%" stop-color="#040b10"/>
+    </linearGradient>
+    <linearGradient id="glowCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <filter id="glowIR" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgIR)"/>
+
+  <!-- Hexagonal Grid Overlay -->
+  <g stroke="#06b6d4" stroke-opacity="0.1" stroke-width="1" fill="none">
+    <polygon points="400,100 470,140 470,220 400,260 330,220 330,140"/>
+    <polygon points="400,260 470,300 470,380 400,420 330,380 330,300"/>
+    <polygon points="260,180 330,220 330,300 260,340 190,300 190,220"/>
+    <polygon points="540,180 610,220 610,300 540,340 470,300 470,220"/>
+    <polygon points="120,260 190,300 190,380 120,420 50,380 50,300"/>
+    <polygon points="680,260 750,300 750,380 680,420 610,380 610,300"/>
+  </g>
+
+  <!-- Incident Containment Perimeter Bubble -->
+  <circle cx="400" cy="240" r="140" fill="#06b6d4" fill-opacity="0.04" stroke="#06b6d4" stroke-width="2" stroke-dasharray="10,6" filter="url(#glowIR)"/>
+  <circle cx="400" cy="240" r="70" fill="#3b82f6" fill-opacity="0.08" stroke="#38bdf8" stroke-width="1.5"/>
+
+  <!-- Dynamic Incident Threat Pulse Nodes -->
+  <!-- Quarantined Node (Red/Amber) -->
+  <g filter="url(#glowIR)">
+    <circle cx="340" cy="210" r="18" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="2"/>
+    <circle cx="340" cy="210" r="6" fill="#ef4444"/>
+    <line x1="330" y1="200" x2="350" y2="220" stroke="#ffffff" stroke-width="2"/>
+    <line x1="350" y1="200" x2="330" y2="220" stroke="#ffffff" stroke-width="2"/>
+  </g>
+
+  <!-- Mitigating Node (Amber) -->
+  <g filter="url(#glowIR)">
+    <circle cx="460" cy="260" r="14" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="460" cy="260" r="5" fill="#f59e0b"/>
+  </g>
+
+  <!-- Secured Core Gateway (Cyan) -->
+  <g filter="url(#glowIR)">
+    <circle cx="400" cy="240" r="16" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2"/>
+    <circle cx="400" cy="240" r="7" fill="#10b981"/>
+  </g>
+
+  <!-- Containment Laser Bars -->
+  <line x1="300" y1="160" x2="380" y2="260" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" filter="url(#glowIR)"/>
+  <line x1="420" y1="220" x2="500" y2="320" stroke="#06b6d4" stroke-width="2" filter="url(#glowIR)"/>
+
+  <!-- Live Incident Stream Card Badges -->
+  <g font-family="monospace" font-size="11" fill="#38bdf8">
+    <rect x="80" y="80" width="210" height="52" rx="8" fill="#08141e" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.5"/>
+    <circle cx="100" cy="98" r="5" fill="#10b981"/>
+    <text x="115" y="102" fill="#e2e8f0" font-weight="bold">AUTONOMOUS SOAR: ACTIVE</text>
+    <text x="115" y="120" fill="#67e8f9">14 Threats Auto-Isolated</text>
+
+    <rect x="510" y="75" width="220" height="52" rx="8" fill="#08141e" stroke="#ef4444" stroke-width="1" stroke-opacity="0.5"/>
+    <circle cx="530" cy="93" r="5" fill="#ef4444"/>
+    <text x="545" y="97" fill="#fecaca" font-weight="bold">RANSOMWARE QUARANTINED</text>
+    <text x="545" y="115" fill="#fca5a5">MTTR: 840ms | Zero Data Loss</text>
+  </g>
+
+  <!-- Footer Tagline -->
+  <text x="400" y="465" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#38bdf8" letter-spacing="3">
+    REAL-TIME SOAR &amp; THREAT CONTAINMENT
+  </text>
+</svg>

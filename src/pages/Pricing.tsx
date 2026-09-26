@@ -30,16 +30,16 @@ export default function Pricing() {
   return (
     <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
-      <section className="py-16 text-center">
+      <section className="py-12 sm:py-16 text-center">
         <div className="max-w-4xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Pricing</p>
-          <h1 className="text-5xl font-black text-white mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-dark-text text-xl max-w-2xl mx-auto">Start free, scale as you grow. No hidden fees, no per-seat tricks.</p>
+          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Pricing</p>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-4 break-words">Simple, Transparent Pricing</h1>
+          <p className="text-dark-text text-sm sm:text-lg md:text-xl max-w-2xl mx-auto break-words">Start free, scale as you grow. No hidden fees, no per-seat tricks.</p>
         </div>
       </section>
 
       {/* Plans */}
-      <section className="pb-20">
+      <section className="pb-16 sm:pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PRICING_PLANS.map((plan) => (
@@ -47,7 +47,7 @@ export default function Pricing() {
                 key={plan.id}
                 data-tilt-card
                 data-glow={plan.popular ? "rgba(77, 141, 255, 0.35)" : plan.id === "enterprise" ? "rgba(49, 208, 170, 0.35)" : "rgba(77, 141, 255, 0.2)"}
-                className={`tilt-card glass-card p-8 flex flex-col relative cursor-pointer shadow-xl ${plan.popular ? "border-cyber-blue/50 ring-1 ring-cyber-blue/30" : ""}`}
+                className={`tilt-card glass-card p-5 sm:p-8 flex flex-col relative cursor-pointer shadow-xl ${plan.popular ? "border-cyber-blue/50 ring-1 ring-cyber-blue/30" : ""}`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyber-blue text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
@@ -63,7 +63,7 @@ export default function Pricing() {
                   </div>
                   <p className="text-dark-text text-sm mb-4">{plan.description}</p>
                   <div className="flex items-end gap-2">
-                    <span className="text-5xl font-black text-white tracking-tight">${plan.price}</span>
+                    <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">${plan.price}</span>
                     <span className="text-dark-text mb-2">/{plan.period}</span>
                   </div>
                 </div>
@@ -98,13 +98,13 @@ export default function Pricing() {
       {/* Comparison */}
       <section className="py-16 bg-dark-surface border-y border-dark-border">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-white text-center mb-12 header-reveal">Why GetCyber vs Others?</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-white text-center mb-8 sm:mb-12 header-reveal">Why GetCyber vs Others?</h2>
           <div
             data-tilt-card
             data-glow="rgba(77, 141, 255, 0.22)"
-            className="tilt-card glass-card overflow-hidden shadow-2xl"
+            className="tilt-card glass-card overflow-x-auto shadow-2xl"
           >
-            <table className="w-full text-sm">
+            <table className="w-full text-xs sm:text-sm min-w-[340px]">
               <thead>
                 <tr className="border-b border-dark-border">
                   <th className="text-left p-4 text-dark-text">Feature</th>

@@ -105,7 +105,7 @@ export default function ExplodedLayerStack() {
                 <div
                   key={layer.id}
                   ref={(el) => (panelRefs.current[idx] = el)}
-                  className={`absolute top-1/2 left-1/2 w-[300px] sm:w-[460px] md:w-[540px] h-[190px] sm:h-[180px] -ml-[150px] sm:-ml-[230px] md:-ml-[270px] -mt-[95px] sm:-mt-[90px] rounded-2xl p-4 sm:p-5 bg-gradient-to-r ${layer.bgGradient} backdrop-blur-xl border ${layer.borderColor} shadow-2xl transition-shadow duration-300`}
+                  className={`absolute top-1/2 left-1/2 w-[90vw] max-w-[320px] sm:max-w-[460px] md:max-w-[540px] h-[190px] sm:h-[180px] -ml-[45vw] sm:-ml-[230px] md:-ml-[270px] -mt-[95px] sm:-mt-[90px] rounded-2xl p-3.5 sm:p-5 bg-gradient-to-r ${layer.bgGradient} backdrop-blur-xl border ${layer.borderColor} shadow-2xl transition-shadow duration-300`}
                   style={{
                     boxShadow: `0 16px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px ${layer.glowColor}`,
                     transformStyle: "preserve-3d",

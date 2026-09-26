@@ -11,6 +11,7 @@ import AuthPromptModal from "@/components/shared/AuthPromptModal";
 import HeroGlobe from "@/components/shared/HeroGlobe";
 import ExplodedLayerStack from "@/components/shared/ExplodedLayerStack";
 import LiveThreatFeed from "@/components/shared/LiveThreatFeed";
+import CyberShowcaseCarousel from "@/components/shared/CyberShowcaseCarousel";
 import { initHeadlineDepth } from "@/lib/effects/headlineDepth";
 import { initTiltCards } from "@/lib/effects/tiltCards";
 import { initReveals } from "@/lib/effects/reveals";
@@ -173,62 +174,62 @@ export default function Home() {
         <HeroGlobe />
 
         {/* Main Hero Content Container */}
-        <div className="relative z-[2] w-full max-w-[1920px] 2xl:max-w-[2400px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 2xl:px-28 flex-1 flex flex-col justify-between">
-          <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl pt-4 sm:pt-8 lg:pt-10 2xl:pt-16">
+        <div className="relative z-[2] w-full max-w-[1920px] 2xl:max-w-[2400px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 flex-1 flex flex-col justify-between">
+          <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl pt-2 sm:pt-6 lg:pt-10 2xl:pt-16">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#0b1222]/80 border border-white/10 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm text-[#4d8dff] mb-6 backdrop-blur-md animate-fade-in shadow-lg">
-              <div className="w-2 h-2 rounded-full bg-[#31d0aa] animate-pulse" />
-              <span className="font-semibold text-[#eaf0ff]">AI-Powered Cybersecurity Platform</span>
-              <span className="text-[#93a2c4] hidden sm:inline">· Trusted by 10,000+ Organizations</span>
+            <div className="inline-flex max-w-full items-center gap-1.5 sm:gap-2 bg-[#0b1222]/80 border border-white/10 rounded-full px-3 py-1.5 sm:px-5 sm:py-2 text-[11px] sm:text-sm text-[#4d8dff] mb-4 sm:mb-6 backdrop-blur-md animate-fade-in shadow-lg">
+              <div className="w-2 h-2 rounded-full bg-[#31d0aa] animate-pulse flex-shrink-0" />
+              <span className="font-semibold text-[#eaf0ff] truncate">AI-Powered Cybersecurity Platform</span>
+              <span className="text-[#93a2c4] hidden md:inline">· Trusted by 10,000+ Organizations</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black text-white tracking-tight leading-[1.05] mb-6 animate-fade-in preserve-3d">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black text-white tracking-tight leading-[1.1] sm:leading-[1.05] mb-4 sm:mb-6 animate-fade-in preserve-3d break-words">
               <span data-depth="1.6" className="block transform-gpu">
                 Defend Your
               </span>
-              <span data-depth="2.6" className="block bg-gradient-to-r from-[#4d8dff] via-[#54c6f0] to-[#31d0aa] bg-clip-text text-transparent transform-gpu">
+              <span data-depth="2.6" className="block bg-gradient-to-r from-[#4d8dff] via-[#54c6f0] to-[#31d0aa] bg-clip-text text-transparent transform-gpu break-words">
                 Digital Future
               </span>
             </h1>
 
             {/* Subtitle - Normal balanced font size */}
-            <p className="text-base sm:text-lg text-[#93a2c4] leading-relaxed mb-8 sm:mb-10 max-w-2xl animate-fade-in">
+            <p className="text-sm sm:text-base md:text-lg text-[#93a2c4] leading-relaxed mb-6 sm:mb-10 max-w-2xl animate-fade-in break-words">
               GetCyber is the enterprise AI-powered cybersecurity platform that unifies vulnerability assessment, threat intelligence, penetration testing, compliance, and incident response — all in one SOC-grade command center.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10 sm:mb-14 animate-fade-in">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-14 animate-fade-in">
               <button
                 onClick={handleGetStarted}
-                className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-base sm:text-lg py-3.5 sm:py-4 px-8 sm:px-10 rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-sm sm:text-base md:text-lg py-3 sm:py-4 px-6 sm:px-10 rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
                 Start Free Trial
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               </button>
               <button
                 onClick={handleDemoClick}
-                className="bg-[#0b1222]/80 hover:bg-[#0b1222] border border-white/10 hover:border-white/20 text-[#eaf0ff] font-semibold text-base sm:text-lg py-3.5 sm:py-4 px-8 sm:px-10 rounded-xl backdrop-blur-md transition-all flex items-center justify-center gap-2"
+                className="bg-[#0b1222]/80 hover:bg-[#0b1222] border border-white/10 hover:border-white/20 text-[#eaf0ff] font-semibold text-sm sm:text-base md:text-lg py-3 sm:py-4 px-6 sm:px-10 rounded-xl backdrop-blur-md transition-all flex items-center justify-center gap-2"
               >
-                <Play className="w-4 h-4 fill-current text-[#4d8dff]" />
+                <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-[#4d8dff] flex-shrink-0" />
                 View Live Demo
               </button>
             </div>
           </div>
 
           {/* Quick Stats Grid spanning across bottom */}
-          <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 2xl:gap-8 mt-8 sm:mt-12 2xl:mt-16 animate-fade-in">
+          <div className="w-full grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 2xl:gap-8 mt-4 sm:mt-8 lg:mt-12 2xl:mt-16 animate-fade-in">
             {stats.map((stat) => (
               <div
                 key={stat.label}
                 data-tilt-card
                 data-glow="rgba(77, 141, 255, 0.28)"
-                className="tilt-card bg-[#0b1222]/60 hover:bg-[#0b1222]/80 border border-white/10 hover:border-[#4d8dff]/30 backdrop-blur-xl rounded-2xl 2xl:rounded-3xl p-5 sm:p-6 2xl:p-8 transition-all duration-300 shadow-xl cursor-pointer group"
+                className="tilt-card bg-[#0b1222]/60 hover:bg-[#0b1222]/80 border border-white/10 hover:border-[#4d8dff]/30 backdrop-blur-xl rounded-xl sm:rounded-2xl 2xl:rounded-3xl p-4 sm:p-6 2xl:p-8 transition-all duration-300 shadow-xl cursor-pointer group"
               >
-                <p className="stat-value text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-black text-white tracking-tight">
+                <p className="stat-value text-2xl xs:text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-black text-white tracking-tight">
                   <AnimatedCounter target={stat.value} />
                 </p>
-                <p className="text-xs sm:text-sm 2xl:text-base text-[#93a2c4] mt-2 2xl:mt-3 font-medium leading-tight">
+                <p className="text-xs sm:text-sm 2xl:text-base text-[#93a2c4] mt-1 sm:mt-2 2xl:mt-3 font-medium leading-tight">
                   {stat.label}
                 </p>
               </div>
@@ -361,6 +362,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Visual Defense Suite Auto-Scrolling Showcase ── */}
+      <CyberShowcaseCarousel />
 
       {/* ── Scroll-Driven Exploded Layer Stack ── */}
       <ExplodedLayerStack />

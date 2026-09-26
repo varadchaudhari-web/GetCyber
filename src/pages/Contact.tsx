@@ -26,11 +26,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen pt-24 bg-[#070b16]">
-      <section className="py-16 text-center">
+      <section className="py-12 sm:py-16 text-center">
         <div className="max-w-3xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Contact Us</p>
-          <h1 className="text-5xl font-black text-white mb-4">Get In Touch</h1>
-          <p className="text-dark-text text-xl">Talk to our security experts, request a demo, or get help with your account.</p>
+          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Contact Us</p>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-4 break-words">Get In Touch</h1>
+          <p className="text-dark-text text-sm sm:text-lg md:text-xl break-words">Talk to our security experts, request a demo, or get help with your account.</p>
         </div>
       </section>
 

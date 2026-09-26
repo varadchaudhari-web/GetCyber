@@ -48,11 +48,11 @@ export default function Solutions() {
   return (
     <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
-      <section className="py-16 text-center" id="top">
+      <section className="py-12 sm:py-16 text-center" id="top">
         <div className="max-w-4xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Security Solutions</p>
-          <h1 className="text-5xl font-black text-white mb-4">Every Security Need, One Platform</h1>
-          <p className="text-dark-text text-xl max-w-2xl mx-auto">GetCyber unifies all essential cybersecurity capabilities into a single AI-powered platform built for enterprises of every size.</p>
+          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Security Solutions</p>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-4 break-words">Every Security Need, One Platform</h1>
+          <p className="text-dark-text text-sm sm:text-lg md:text-xl max-w-2xl mx-auto break-words">GetCyber unifies all essential cybersecurity capabilities into a single AI-powered platform built for enterprises of every size.</p>
         </div>
 
         {/* Quick nav anchors */}

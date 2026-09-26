@@ -32,7 +32,8 @@ export function initLayerStack(stageEl: HTMLElement | null, panels: HTMLElement[
       const rotZ = -32 + spread * 4;
       const opacity = prefersReduced ? 1 : 0.4 + spread * 0.6;
 
-      panel.style.transform = `translateY(${ty.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateX(${rotX.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg)`;
+      const scale = window.innerWidth < 420 ? 0.62 : window.innerWidth < 640 ? 0.78 : window.innerWidth < 1024 ? 0.9 : 1.0;
+      panel.style.transform = `scale(${scale}) translateY(${ty.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateX(${rotX.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg)`;
       panel.style.opacity = opacity.toFixed(2);
       panel.style.willChange = "transform, opacity";
     });

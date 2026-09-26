@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070b16"/>
+      <stop offset="50%" stop-color="#0b1222"/>
+      <stop offset="100%" stop-color="#060913"/>
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4d8dff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#31d0aa" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(77, 141, 255, 0.08)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Radial Glow Behind Shield -->
+  <circle cx="400" cy="250" r="180" fill="#2563eb" opacity="0.15" filter="url(#glow)"/>
+  <circle cx="400" cy="250" r="120" fill="#38bdf8" opacity="0.1" filter="url(#glow)"/>
+
+  <!-- Orbital Cyber Rings -->
+  <circle cx="400" cy="250" r="190" fill="none" stroke="#4d8dff" stroke-width="1" stroke-dasharray="8 6" opacity="0.4"/>
+  <circle cx="400" cy="250" r="150" fill="none" stroke="#31d0aa" stroke-width="1.5" stroke-dasharray="14 10" opacity="0.5"/>
+  <circle cx="400" cy="250" r="110" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.3"/>
+
+  <!-- 3D Geometric Shield -->
+  <path d="M 400 100 L 490 140 L 490 270 Q 490 350 400 400 Q 310 350 310 270 L 310 140 Z" fill="url(#shieldGrad)" stroke="#38bdf8" stroke-width="2.5" filter="url(#glow)"/>
+
+  <!-- Inner Cloud Nodes -->
+  <path d="M 360 250 A 25 25 0 0 1 405 230 A 35 35 0 0 1 450 250 A 20 20 0 0 1 445 285 L 360 285 A 20 20 0 0 1 360 250 Z" fill="#4d8dff" fill-opacity="0.25" stroke="#31d0aa" stroke-width="2"/>
+
+  <!-- Digital Lock Core -->
+  <rect x="385" y="245" width="30" height="24" rx="4" fill="#070b16" stroke="#31d0aa" stroke-width="2"/>
+  <path d="M 392 245 L 392 235 A 8 8 0 0 1 408 235 L 408 245" fill="none" stroke="#31d0aa" stroke-width="2"/>
+  <circle cx="400" cy="255" r="3" fill="#31d0aa" filter="url(#glow)"/>
+
+  <!-- Laser Circuit Traces -->
+  <path d="M 240 180 L 310 210 M 210 250 L 310 250 M 240 320 L 310 290" stroke="#4d8dff" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+  <path d="M 560 180 L 490 210 M 590 250 L 490 250 M 560 320 L 490 290" stroke="#31d0aa" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+
+  <!-- Corner Data Markers -->
+  <circle cx="210" cy="250" r="4" fill="#4d8dff"/>
+  <circle cx="590" cy="250" r="4" fill="#31d0aa"/>
+
+  <!-- Status Badges -->
+  <rect x="290" y="420" width="220" height="32" rx="16" fill="#0b1222" stroke="rgba(255, 255, 255, 0.15)"/>
+  <circle cx="310" cy="436" r="4" fill="#31d0aa" filter="url(#glow)"/>
+  <text x="325" y="440" fill="#eaf0ff" font-family="monospace" font-size="11" font-weight="bold">ZERO-TRUST ENCRYPTED</text>
+</svg>

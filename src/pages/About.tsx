@@ -53,12 +53,12 @@ export default function About() {
   return (
     <div className="min-h-screen pt-24 bg-[#070b16]">
       {/* Hero */}
-      <section className="py-16 text-center relative overflow-hidden" id="hero">
+      <section className="py-12 sm:py-16 text-center relative overflow-hidden" id="hero">
         <div className="absolute inset-0 bg-glow-blue opacity-20 pointer-events-none" />
         <div className="relative max-w-4xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-sm font-semibold uppercase tracking-wider mb-3">Our Story</p>
-          <h1 className="text-5xl font-black text-white mb-6">Making Cybersecurity Accessible to All</h1>
-          <p className="text-dark-text text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Our Story</p>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-6 break-words">Making Cybersecurity Accessible to All</h1>
+          <p className="text-dark-text text-sm sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed break-words">
             GetCyber was founded in 2022 by a team of former NSA, Google, and Mandiant security experts who believed that enterprise-grade cybersecurity should not be limited to Fortune 500 companies.
           </p>
         </div>

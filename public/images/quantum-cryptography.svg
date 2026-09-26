@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgQuantum" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#091322"/>
+      <stop offset="100%" stop-color="#04060d"/>
+    </linearGradient>
+    <linearGradient id="tealCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#31d0aa"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <filter id="tealGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgQuantum)"/>
+
+  <!-- Quantum Lattice -->
+  <g stroke="rgba(49, 208, 170, 0.15)" stroke-width="1">
+    <line x1="200" y1="100" x2="600" y2="100"/>
+    <line x1="160" y1="180" x2="640" y2="180"/>
+    <line x1="140" y1="260" x2="660" y2="260"/>
+    <line x1="160" y1="340" x2="640" y2="340"/>
+    <line x1="200" y1="420" x2="600" y2="420"/>
+
+    <line x1="250" y1="80" x2="250" y2="440"/>
+    <line x1="350" y1="60" x2="350" y2="460"/>
+    <line x1="450" y1="60" x2="450" y2="460"/>
+    <line x1="550" y1="80" x2="550" y2="440"/>
+  </g>
+
+  <!-- Central Quantum Cryptographic Cube -->
+  <g transform="translate(400, 240)" filter="url(#tealGlow)">
+    <!-- Outer isometric ring -->
+    <ellipse cx="0" cy="0" rx="140" ry="60" fill="none" stroke="#31d0aa" stroke-width="1.5" stroke-dasharray="12 8" opacity="0.6"/>
+    <ellipse cx="0" cy="0" rx="110" ry="45" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.8"/>
+
+    <!-- 3D Isometric Crystal / Cube -->
+    <!-- Top Face -->
+    <polygon points="0,-60 60,-30 0,0 -60,-30" fill="#38bdf8" fill-opacity="0.3" stroke="#31d0aa" stroke-width="2"/>
+    <!-- Left Face -->
+    <polygon points="-60,-30 0,0 0,60 -60,30" fill="#2563eb" fill-opacity="0.35" stroke="#38bdf8" stroke-width="2"/>
+    <!-- Right Face -->
+    <polygon points="0,0 60,-30 60,30 0,60" fill="#31d0aa" fill-opacity="0.4" stroke="#31d0aa" stroke-width="2"/>
+
+    <!-- Inner Floating Key Core -->
+    <circle cx="0" cy="0" r="14" fill="#070b16" stroke="#31d0aa" stroke-width="2"/>
+    <circle cx="0" cy="0" r="6" fill="#31d0aa"/>
+  </g>
+
+  <!-- Binary Key Stream -->
+  <text x="210" y="245" fill="#31d0aa" font-family="monospace" font-size="10" opacity="0.5">10110010101</text>
+  <text x="520" y="245" fill="#38bdf8" font-family="monospace" font-size="10" opacity="0.5">01101001011</text>
+
+  <!-- Quantum Cryptography Badge -->
+  <rect x="270" y="420" width="260" height="32" rx="16" fill="#0b1222" stroke="rgba(49, 208, 170, 0.3)"/>
+  <circle cx="290" cy="436" r="4" fill="#31d0aa" filter="url(#tealGlow)"/>
+  <text x="305" y="440" fill="#eaf0ff" font-family="monospace" font-size="11" font-weight="bold">QUANTUM AES-512 SECURED</text>
+</svg>
