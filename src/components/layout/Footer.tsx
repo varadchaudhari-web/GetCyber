@@ -1,5 +1,20 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Shield, Twitter, Linkedin, Github, Youtube, Mail, Phone, MapPin, ExternalLink, Activity } from "lucide-react";
+import {
+  Shield,
+  Twitter,
+  Linkedin,
+  Github,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+  ExternalLink,
+  Activity,
+  ArrowUp,
+  CheckCircle,
+} from "lucide-react";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const socialLinks = [
   { icon: Twitter, href: "https://twitter.com/getcyber", label: "Twitter" },
@@ -8,7 +23,7 @@ const socialLinks = [
   { icon: Youtube, href: "https://youtube.com/getcyber", label: "YouTube" },
 ];
 
-const certifications = ["SOC 2 Type II", "ISO 27001", "GDPR Compliant", "FedRAMP Ready", "PCI DSS"];
+const certifications = ["SOC 2 Type II", "ISO 27001:2022", "GDPR Compliant", "HIPAA Compliant", "PCI DSS v4.0", "NIST 800-207"];
 
 const quickLinks = [
   { label: "Solutions", href: "/solutions" },
@@ -26,94 +41,111 @@ const quickLinks = [
 function scrollToSection(hash: string) {
   const el = document.getElementById(hash);
   if (el) {
-    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
     window.scrollTo({ top, behavior: "smooth" });
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
 
 export default function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [email, setEmail] = useState("");
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleQuickLink = (href: string) => {
-    if (location.pathname === href) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate(href);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    scrollToTop();
+    navigate(href);
   };
 
   const handleSolutionLink = (hash: string) => {
-    if (window.location.pathname === "/solutions") {
+    if (location.pathname === "/solutions") {
       scrollToSection(hash);
     } else {
       navigate(`/solutions#${hash}`);
+      setTimeout(() => scrollToSection(hash), 150);
     }
   };
 
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !email.includes("@")) {
+      toast.error("Please enter a valid work email.");
+      return;
+    }
+    toast.success("Subscribed to GetCyber Threat Intelligence Briefing!");
+    setEmail("");
+  };
+
   return (
-    <footer className="bg-dark-surface border-t border-dark-border">
+    <footer className="bg-[#05070F] border-t border-white/10 text-slate-300 relative z-20">
       {/* Newsletter */}
-      <div className="border-b border-dark-border">
+      <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">Stay Ahead of Cyber Threats</h3>
-              <p className="text-dark-text text-sm">Weekly threat intelligence, security tips, and platform updates.</p>
+              <h3 className="font-display text-xl font-bold text-white mb-1">
+                Stay Ahead of Emerging Cyber Threats
+              </h3>
+              <p className="text-slate-400 text-sm">
+                Zero-day advisories, reverse engineering reports, and SOC mitigation playbooks delivered weekly.
+              </p>
             </div>
-            <div className="flex gap-3 w-full lg:w-auto">
-              <input type="email" placeholder="Your email address" className="input-cyber flex-1 lg:w-72" />
-              <button className="cyber-btn-primary whitespace-nowrap">Subscribe</button>
-            </div>
+            <form onSubmit={handleSubscribe} className="flex gap-2.5 w-full lg:w-auto">
+              <input
+                type="email"
+                placeholder="Enter your security team email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-cyber flex-1 lg:w-80 text-xs sm:text-sm bg-[#0B101E] border-white/10 focus:border-cyber-blue"
+              />
+              <button type="submit" className="cyber-btn-primary text-xs sm:text-sm whitespace-nowrap shadow-glow-blue">
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-      {/* Main Footer */}
+      {/* Main Footer Links */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
-          <div>
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-cyber-blue/20 rounded-lg flex items-center justify-center border border-cyber-blue/40">
+          <div className="lg:col-span-1">
+            <button
+              onClick={() => {
+                scrollToTop();
+                navigate("/");
+              }}
+              className="inline-flex items-center gap-2.5 mb-4 group text-left"
+            >
+              <div className="w-9 h-9 bg-cyber-blue/15 rounded-xl flex items-center justify-center border border-cyber-blue/40 group-hover:scale-105 transition-transform">
                 <Shield className="w-5 h-5 text-cyber-blue" />
               </div>
-              <span className="font-bold text-xl text-white">
+              <span className="font-display font-black text-xl text-white">
                 Get<span className="text-gradient-blue">Cyber</span>
               </span>
-            </Link>
-            <p className="text-dark-text text-sm leading-relaxed mb-6">
-              Enterprise AI-powered cybersecurity platform protecting organizations worldwide from modern cyber threats.
+            </button>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-5">
+              Enterprise AI-powered cybersecurity platform protecting cloud infrastructure, identity, and endpoints at machine speed.
             </p>
-            <div className="space-y-2.5 mb-6">
-              <a href="mailto:security@getcyber.io" className="flex items-center gap-2 text-sm text-dark-text hover:text-cyber-blue transition-colors">
-                <Mail className="w-3.5 h-3.5 flex-shrink-0" />
-                security@getcyber.io
-              </a>
-              <a href="tel:+18005551234" className="flex items-center gap-2 text-sm text-dark-text hover:text-cyber-blue transition-colors">
-                <Phone className="w-3.5 h-3.5 flex-shrink-0" />
-                +1 (800) 555-CYBER
-              </a>
-              <div className="flex items-center gap-2 text-sm text-dark-text">
-                <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                San Francisco, CA 94105
-              </div>
-            </div>
-            <div className="flex gap-2">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
+            <div className="flex gap-2.5">
+              {socialLinks.map((s) => {
+                const Icon = s.icon;
                 return (
                   <a
-                    key={social.label}
-                    href={social.href}
+                    key={s.label}
+                    href={s.href}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="w-8 h-8 bg-dark-card rounded-lg flex items-center justify-center text-dark-text hover:text-cyber-blue border border-dark-border transition-all duration-200 hover:bg-cyber-blue/10 hover:border-cyber-blue/50"
+                    rel="noreferrer"
+                    className="w-8 h-8 rounded-lg bg-[#0B101E] border border-white/10 hover:border-cyber-blue/40 hover:text-cyber-blue flex items-center justify-center transition-all"
+                    title={s.label}
                   >
-                    <Icon className="w-3.5 h-3.5" />
+                    <Icon className="w-4 h-4" />
                   </a>
                 );
               })}
@@ -122,13 +154,15 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Quick Links</h4>
+            <h4 className="font-display text-xs font-bold text-white mb-4 uppercase tracking-wider text-slate-200">
+              Navigation
+            </h4>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => handleQuickLink(link.href)}
-                    className="text-sm text-dark-text hover:text-cyber-blue transition-colors duration-150 text-left"
+                    className="text-xs sm:text-sm text-slate-400 hover:text-cyber-blue transition-colors text-left"
                   >
                     {link.label}
                   </button>
@@ -139,7 +173,9 @@ export default function Footer() {
 
           {/* Security Solutions */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Security Solutions</h4>
+            <h4 className="font-display text-xs font-bold text-white mb-4 uppercase tracking-wider text-slate-200">
+              Security Capabilities
+            </h4>
             <ul className="space-y-2.5">
               {[
                 { label: "Vulnerability Assessment", hash: "vulnerability" },
@@ -152,7 +188,7 @@ export default function Footer() {
                 <li key={item.hash}>
                   <button
                     onClick={() => handleSolutionLink(item.hash)}
-                    className="text-sm text-dark-text hover:text-cyber-blue transition-colors duration-150 text-left"
+                    className="text-xs sm:text-sm text-slate-400 hover:text-cyber-blue transition-colors text-left"
                   >
                     {item.label}
                   </button>
@@ -160,43 +196,76 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
+          {/* Contact / Back to Top Column */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <h4 className="font-display text-xs font-bold text-white mb-4 uppercase tracking-wider text-slate-200">
+                Security Headquarters
+              </h4>
+              <p className="text-xs text-slate-400 leading-relaxed mb-2">
+                24/7 SOC Telemetry & Autonomous Incident Dispatch
+              </p>
+              <p className="text-xs font-mono text-cyber-blue">security-operations@getcyber.io</p>
+            </div>
+
+            {/* Back to top button */}
+            <div className="pt-6">
+              <button
+                onClick={scrollToTop}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0B101E] border border-white/10 hover:border-cyber-blue/40 text-xs font-semibold text-slate-300 hover:text-white shadow-lg transition-all group"
+              >
+                <span>Back to Top</span>
+                <ArrowUp className="w-3.5 h-3.5 text-cyber-blue group-hover:-translate-y-0.5 transition-transform" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Certifications */}
-      <div className="border-t border-dark-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      {/* Certifications Bar */}
+      <div className="border-t border-white/10 bg-[#04060C]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-3 items-center">
-              <span className="text-xs text-dark-text">Certified:</span>
+            <div className="flex flex-wrap gap-2.5 items-center">
+              <span className="text-[11px] font-mono text-slate-400">Validated:</span>
               {certifications.map((cert) => (
-                <span key={cert} className="text-xs bg-dark-card border border-dark-border text-dark-text-bright px-2.5 py-1 rounded-full">
+                <span
+                  key={cert}
+                  className="text-[10px] font-mono bg-[#0B101E] border border-white/10 text-slate-300 px-2.5 py-0.5 rounded-full"
+                >
                   {cert}
                 </span>
               ))}
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-cyber-green animate-pulse" />
-              <Link to="/status" className="text-xs text-cyber-green hover:text-cyber-green-light flex items-center gap-1 transition-colors">
-                All Systems Operational
-                <Activity className="w-3 h-3" />
-              </Link>
+              <button
+                onClick={() => handleQuickLink("/status")}
+                className="text-xs font-mono text-cyber-green hover:underline flex items-center gap-1"
+              >
+                All 128 Global Sensors Operational
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="border-t border-dark-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-dark-text">
-              © {new Date().getFullYear()} GetCyber, Inc. All rights reserved.
-            </p>
+      {/* Copyright & Legal Links */}
+      <div className="border-t border-white/5 bg-[#03050A]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+            <p>© {new Date().getFullYear()} GetCyber Security Technologies, Inc. All rights reserved.</p>
             <div className="flex gap-4">
-              <Link to="/privacy" className="text-xs text-dark-text hover:text-white transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="text-xs text-dark-text hover:text-white transition-colors">Terms of Service</Link>
-              <Link to="/cookie-settings" className="text-xs text-dark-text hover:text-white transition-colors">Cookie Settings</Link>
+              <button onClick={() => handleQuickLink("/privacy")} className="hover:text-white transition-colors">
+                Privacy Policy
+              </button>
+              <button onClick={() => handleQuickLink("/terms")} className="hover:text-white transition-colors">
+                Terms of Service
+              </button>
+              <button onClick={() => handleQuickLink("/cookie-settings")} className="hover:text-white transition-colors">
+                Cookie Settings
+              </button>
             </div>
           </div>
         </div>

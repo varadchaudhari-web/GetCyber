@@ -48,9 +48,12 @@ function PublicLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
+import ScrollToTop from "@/components/shared/ScrollToTop";
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Toaster
         position="top-right"
         toastOptions={{
@@ -66,6 +69,7 @@ export default function App() {
         <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
         <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
         <Route path="/blog" element={<PublicLayout><Blog /></PublicLayout>} />
+        <Route path="/blog/:id" element={<PublicLayout><Blog /></PublicLayout>} />
         <Route path="/documentation" element={<PublicLayout><Documentation /></PublicLayout>} />
         <Route path="/faq" element={<PublicLayout><FAQ /></PublicLayout>} />
         <Route path="/privacy" element={<PublicLayout><Privacy /></PublicLayout>} />

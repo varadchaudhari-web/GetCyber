@@ -117,26 +117,31 @@ const sections = [
 
 export default function Terms() {
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <div className="min-h-screen pt-28 pb-24 bg-[#05070F] text-dark-text-bright relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyber-blue/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+
       {/* Hero */}
-      <section className="py-12 text-center relative overflow-hidden" id="hero">
-        <div className="absolute inset-0 bg-glow-blue opacity-10" />
-        <div className="relative max-w-3xl mx-auto px-4">
-          <div className="w-14 h-14 bg-cyber-blue/10 border border-cyber-blue/30 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <FileText className="w-7 h-7 text-cyber-blue" />
+      <section className="py-12 sm:py-16 text-center relative z-10" id="hero">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-blue/10 border border-cyber-blue/20 text-cyber-blue text-xs font-semibold uppercase tracking-wider mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse" />
+            Legal Agreement
           </div>
-          <h1 className="text-4xl font-black text-white mb-3">Terms of Service</h1>
-          <p className="text-dark-text text-sm">Last updated: July 1, 2026 — Effective: July 1, 2026</p>
-          <p className="text-dark-text-bright mt-4 leading-relaxed max-w-2xl mx-auto">
-            Please read these Terms carefully before using the GetCyber platform. These terms form a binding legal agreement between you and GetCyber, Inc.
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white mb-4 tracking-tight">
+            Terms of Service
+          </h1>
+          <p className="text-dark-text text-xs sm:text-sm font-mono mb-4">Last updated: July 1, 2026 · Global Commercial Standard</p>
+          <p className="text-dark-text text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Please review these Terms carefully before accessing GetCyber platforms, threat intelligence endpoints, or automated API services.
           </p>
         </div>
       </section>
 
       {/* Quick Nav */}
-      <section className="py-8 bg-dark-surface border-y border-dark-border" id="toc">
+      <section className="py-6 relative z-10" id="toc">
         <div className="max-w-4xl mx-auto px-4">
-          <p className="text-xs text-dark-text uppercase tracking-wider mb-4 font-semibold">Quick Navigation</p>
+          <p className="text-xs text-cyber-blue uppercase font-mono tracking-widest mb-3 font-semibold">Quick Index</p>
           <div className="flex flex-wrap gap-2">
             {sections.map((s) => (
               <a
@@ -147,7 +152,7 @@ export default function Terms() {
                   const el = document.getElementById(s.id);
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="text-xs bg-dark-card border border-dark-border text-dark-text-bright hover:text-cyber-blue hover:border-cyber-blue/40 px-3 py-1.5 rounded-full transition-all"
+                className="text-xs bg-[#0B101E]/80 border border-white/10 text-dark-text hover:text-white hover:border-cyber-blue/40 px-3.5 py-1.5 rounded-full transition-all font-mono"
               >
                 {s.title.replace(/^\d+\.\s/, "")}
               </a>
@@ -157,22 +162,22 @@ export default function Terms() {
       </section>
 
       {/* Sections */}
-      <div className="max-w-4xl mx-auto px-4 py-12 space-y-5">
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-4 relative z-10">
         {sections.map((section) => {
           const Icon = section.icon;
           return (
-            <div key={section.id} id={section.id} className="glass-card p-6 scroll-mt-24">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-dark-card/60 border border-dark-border">
-                  <Icon className={`w-4.5 h-4.5 ${section.color}`} />
+            <div key={section.id} id={section.id} className="p-7 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 shadow-xl scroll-mt-28">
+              <div className="flex items-center gap-3.5 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 border border-white/10">
+                  <Icon className={`w-5 h-5 ${section.color}`} />
                 </div>
-                <h2 className="text-lg font-bold text-white">{section.title}</h2>
+                <h2 className="text-lg font-display font-bold text-white">{section.title}</h2>
               </div>
-              <ul className="space-y-2.5">
+              <ul className="space-y-3">
                 {section.content.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-dark-text leading-relaxed">
+                  <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-dark-text leading-relaxed">
                     <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${section.color.replace("text-", "bg-")}`} />
-                    {item}
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -182,15 +187,15 @@ export default function Terms() {
       </div>
 
       {/* Footer Links */}
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="max-w-4xl mx-auto px-4 pt-6 relative z-10">
+        <div className="p-7 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
           <div>
-            <p className="text-white font-semibold text-sm mb-1">Questions about our Terms?</p>
-            <p className="text-dark-text text-xs">Our legal team is happy to help clarify any points.</p>
+            <p className="text-white font-display font-bold text-base mb-1">Questions regarding Terms?</p>
+            <p className="text-dark-text text-xs">Our legal counsel and compliance officers are available to assist.</p>
           </div>
           <div className="flex gap-3">
-            <Link to="/contact" className="cyber-btn-secondary text-sm py-2 px-4">Contact Us</Link>
-            <Link to="/privacy" className="cyber-btn-primary text-sm py-2 px-4 flex items-center gap-1.5">
+            <Link to="/contact" className="cyber-btn-secondary text-xs py-2.5 px-5 rounded-xl font-semibold">Contact Legal</Link>
+            <Link to="/privacy" className="cyber-btn-primary text-xs py-2.5 px-5 rounded-xl font-semibold flex items-center gap-1.5">
               Privacy Policy <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

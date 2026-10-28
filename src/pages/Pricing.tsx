@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle, XCircle, Shield, Zap, Building2, HelpCircle } from "lucide-react";
+import { CheckCircle, XCircle, Shield, Zap, Building2, HelpCircle, ArrowRight, Check } from "lucide-react";
 import { PRICING_PLANS } from "@/constants/mockData";
 import { initTiltCards } from "@/lib/effects/tiltCards";
 import { initReveals } from "@/lib/effects/reveals";
@@ -15,6 +15,8 @@ const faqs = [
 ];
 
 export default function Pricing() {
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("yearly");
+
   useEffect(() => {
     const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt-card]"));
     const cleanupTilt = initTiltCards(cards);
@@ -28,135 +30,200 @@ export default function Pricing() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 bg-[#070b16]">
+    <div className="min-h-screen pt-28 pb-20 bg-[#05070F] text-slate-100 relative overflow-hidden">
+      {/* Background soft ambient glows */}
+      <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-cyber-blue/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 right-10 w-[450px] h-[450px] bg-cyber-green/10 rounded-full blur-[130px] pointer-events-none" />
+
       {/* Hero */}
-      <section className="py-12 sm:py-16 text-center">
+      <section className="py-12 sm:py-16 text-center relative z-10">
         <div className="max-w-4xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Pricing</p>
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-4 break-words">Simple, Transparent Pricing</h1>
-          <p className="text-dark-text text-sm sm:text-lg md:text-xl max-w-2xl mx-auto break-words">Start free, scale as you grow. No hidden fees, no per-seat tricks.</p>
+          <span className="text-xs font-mono uppercase tracking-wider text-cyber-blue font-semibold bg-cyber-blue/10 border border-cyber-blue/30 px-3 py-1 rounded-full">
+            Transparent Pricing
+          </span>
+          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight mt-4 mb-4">
+            Predictable Security Investment
+          </h1>
+          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+            Deploy enterprise AI cyber defense today. Start free, scale as your cloud attack surface expands.
+          </p>
+
+          {/* Toggle */}
+          <div className="flex items-center justify-center gap-3">
+            <span className={`text-xs sm:text-sm font-semibold ${billingCycle === "monthly" ? "text-white" : "text-slate-400"}`}>
+              Monthly Billing
+            </span>
+            <button
+              onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
+              className="w-12 h-6 bg-[#0B101E] rounded-full p-0.5 border border-white/15 relative transition-colors"
+            >
+              <div
+                className={`w-5 h-5 rounded-full bg-cyber-blue transition-transform ${
+                  billingCycle === "yearly" ? "translate-x-6" : "translate-x-0"
+                }`}
+              />
+            </button>
+            <span className={`text-xs sm:text-sm font-semibold flex items-center gap-1.5 ${billingCycle === "yearly" ? "text-white" : "text-slate-400"}`}>
+              <span>Annual Billing</span>
+              <span className="text-[10px] text-cyber-green bg-cyber-green/10 border border-cyber-green/20 px-2 py-0.5 rounded-full font-bold">
+                SAVE 20%
+              </span>
+            </span>
+          </div>
         </div>
       </section>
 
       {/* Plans */}
-      <section className="pb-16 sm:pb-20">
+      <section className="pb-16 sm:pb-20 relative z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {PRICING_PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                data-tilt-card
-                data-glow={plan.popular ? "rgba(77, 141, 255, 0.35)" : plan.id === "enterprise" ? "rgba(49, 208, 170, 0.35)" : "rgba(77, 141, 255, 0.2)"}
-                className={`tilt-card glass-card p-5 sm:p-8 flex flex-col relative cursor-pointer shadow-xl ${plan.popular ? "border-cyber-blue/50 ring-1 ring-cyber-blue/30" : ""}`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyber-blue text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
-                    Most Popular
-                  </div>
-                )}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    {plan.id === "free" && <Shield className="w-5 h-5 text-dark-text" />}
-                    {plan.id === "professional" && <Zap className="w-5 h-5 text-cyber-blue" />}
-                    {plan.id === "enterprise" && <Building2 className="w-5 h-5 text-cyber-green" />}
-                    <h2 className="tilt-title text-xl font-bold text-white">{plan.name}</h2>
-                  </div>
-                  <p className="text-dark-text text-sm mb-4">{plan.description}</p>
-                  <div className="flex items-end gap-2">
-                    <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">${plan.price}</span>
-                    <span className="text-dark-text mb-2">/{plan.period}</span>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {PRICING_PLANS.map((plan) => {
+              const isPopular = plan.popular;
+              const calculatedPrice =
+                billingCycle === "yearly"
+                  ? Math.round(plan.price * 0.8)
+                  : plan.price;
 
-                <Link
-                  to="/register"
-                  className={`w-full text-center py-3 rounded-lg font-semibold text-sm mb-6 transition-all block ${plan.popular ? "cyber-btn-primary" : plan.id === "enterprise" ? "cyber-btn-green" : "cyber-btn-secondary"}`}
+              return (
+                <div
+                  key={plan.id}
+                  data-tilt-card
+                  data-glow={isPopular ? "rgba(37, 99, 235, 0.35)" : "rgba(34, 197, 94, 0.25)"}
+                  className={`tilt-card rounded-[24px] p-6 sm:p-8 flex flex-col justify-between relative cursor-pointer shadow-2xl transition-all ${
+                    isPopular
+                      ? "bg-gradient-to-b from-[#0F1B38] to-[#0A1020] border-2 border-cyber-blue ring-1 ring-cyber-blue/40 shadow-glow-blue"
+                      : "bg-[#0B101E]/85 border border-white/10 hover:border-white/20"
+                  }`}
                 >
-                  {plan.cta}
-                </Link>
+                  {isPopular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyber-blue text-white text-[10px] font-mono uppercase font-bold tracking-wider px-3.5 py-1 rounded-full shadow-lg">
+                      Most Popular
+                    </div>
+                  )}
 
-                <div className="space-y-2.5 flex-1">
-                  {plan.features.map((f) => (
-                    <div key={f} className="flex items-start gap-2.5">
-                      <CheckCircle className="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-dark-text-bright">{f}</span>
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      {plan.id === "free" && <Shield className="w-5 h-5 text-slate-400" />}
+                      {plan.id === "professional" && <Zap className="w-5 h-5 text-cyber-blue" />}
+                      {plan.id === "enterprise" && <Building2 className="w-5 h-5 text-cyber-green" />}
+                      <h2 className="tilt-title font-display text-xl font-bold text-white">{plan.name}</h2>
                     </div>
-                  ))}
-                  {plan.notIncluded.map((f) => (
-                    <div key={f} className="flex items-start gap-2.5 opacity-50">
-                      <XCircle className="w-4 h-4 text-dark-text flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-dark-text">{f}</span>
+
+                    <p className="text-slate-300 text-xs sm:text-sm mb-5 leading-relaxed">{plan.description}</p>
+
+                    <div className="flex items-baseline gap-1.5 mb-6">
+                      <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight font-mono">
+                        ${calculatedPrice}
+                      </span>
+                      <span className="text-slate-400 text-xs">/month</span>
                     </div>
-                  ))}
+
+                    <Link
+                      to="/register"
+                      className={`w-full text-center py-3 rounded-xl font-bold text-xs sm:text-sm mb-6 transition-all block ${
+                        isPopular
+                          ? "cyber-btn-primary shadow-glow-blue"
+                          : "cyber-btn-secondary"
+                      }`}
+                    >
+                      {plan.cta}
+                    </Link>
+
+                    <div className="space-y-2.5">
+                      {plan.features.map((f) => (
+                        <div key={f} className="flex items-start gap-2.5 text-xs text-slate-200">
+                          <Check className="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" />
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                      {plan.notIncluded.map((f) => (
+                        <div key={f} className="flex items-start gap-2.5 text-xs text-slate-500 opacity-60">
+                          <XCircle className="w-4 h-4 text-slate-600 flex-shrink-0 mt-0.5" />
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Comparison */}
-      <section className="py-16 bg-dark-surface border-y border-dark-border">
+      {/* Comparison Table */}
+      <section className="py-20 border-y border-white/10 bg-[#080D1A]/50 relative z-10">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-black text-white text-center mb-8 sm:mb-12 header-reveal">Why GetCyber vs Others?</h2>
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white text-center mb-10 header-reveal">
+            Why Security Leaders Choose GetCyber
+          </h2>
           <div
             data-tilt-card
-            data-glow="rgba(77, 141, 255, 0.22)"
-            className="tilt-card glass-card overflow-x-auto shadow-2xl"
+            className="tilt-card rounded-[22px] bg-[#0B101E]/90 border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-6"
           >
-            <table className="w-full text-xs sm:text-sm min-w-[340px]">
-              <thead>
-                <tr className="border-b border-dark-border">
-                  <th className="text-left p-4 text-dark-text">Feature</th>
-                  <th className="p-4 text-cyber-blue font-bold">GetCyber</th>
-                  <th className="p-4 text-dark-text">Others</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["AI-Powered Security Analysis", true, false],
-                  ["All-in-One Platform", true, false],
-                  ["Dark Web Monitoring", true, "Addon"],
-                  ["Unlimited Scans", true, "Limited"],
-                  ["40+ Compliance Frameworks", true, false],
-                  ["Real-time Threat Intelligence", true, "Partial"],
-                  ["Executive Reporting", true, true],
-                  ["On-premise Deployment", true, "Enterprise only"],
-                ].map(([feat, us, others]) => (
-                  <tr key={feat as string} className="border-b border-dark-border/50 hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 text-dark-text-bright">{feat as string}</td>
-                    <td className="p-4 text-center">{us === true ? <CheckCircle className="w-4 h-4 text-cyber-green mx-auto" /> : <span className="text-cyber-blue text-xs">{us}</span>}</td>
-                    <td className="p-4 text-center">{others === false ? <XCircle className="w-4 h-4 text-dark-text mx-auto opacity-50" /> : <span className="text-dark-text text-xs">{others as string}</span>}</td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs sm:text-sm min-w-[420px]">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left py-3.5 px-4 text-slate-400 font-mono text-xs uppercase">Platform Capability</th>
+                    <th className="py-3.5 px-4 text-center text-cyber-blue font-bold font-mono">GetCyber SOC</th>
+                    <th className="py-3.5 px-4 text-center text-slate-400 font-mono text-xs uppercase">Legacy Scanners</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[
+                    ["AI-Powered Exploit Validation & Correlation", true, false],
+                    ["Unified Attack Surface & SOC Console", true, false],
+                    ["Automated ISO 27001 & SOC 2 Evidence Collection", true, "Manual Addon"],
+                    ["Unlimited Continuous Scans", true, "Per-scan pricing"],
+                    ["Dark Web & Zero-Day Threat Stream", true, "Partial"],
+                    ["Deterministic 15s SOAR Containment", true, false],
+                    ["Executive & Board-Level Audit PDFs", true, true],
+                  ].map(([feat, us, others], idx) => (
+                    <tr key={idx} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                      <td className="py-3 px-4 text-slate-200 font-medium">{feat as string}</td>
+                      <td className="py-3 px-4 text-center">
+                        {us === true ? <CheckCircle className="w-4 h-4 text-cyber-green mx-auto" /> : <span className="text-cyber-blue font-mono text-xs">{us}</span>}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        {others === false ? <XCircle className="w-4 h-4 text-slate-600 mx-auto" /> : <span className="text-slate-400 font-mono text-xs">{others as string}</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20">
+      {/* Pricing FAQs */}
+      <section className="py-20 relative z-10">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-white text-center mb-12 flex items-center justify-center gap-2 header-reveal">
-            <HelpCircle className="w-7 h-7 text-cyber-blue" /> Pricing FAQ
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white text-center mb-10 flex items-center justify-center gap-2">
+            <HelpCircle className="w-6 h-6 text-cyber-blue" />
+            <span>Pricing & Architecture FAQ</span>
           </h2>
-          <div className="space-y-4">
-            {faqs.map((faq) => (
+
+          <div className="space-y-3.5">
+            {faqs.map((faq, idx) => (
               <div
-                key={faq.q}
-                data-tilt-card
-                data-glow="rgba(77, 141, 255, 0.22)"
-                className="tilt-card glass-card p-5 cursor-pointer shadow-md"
+                key={idx}
+                className="rounded-2xl bg-[#0B101E]/80 border border-white/10 p-5 shadow-lg hover:border-cyber-blue/30 transition-all"
               >
-                <h3 className="tilt-title font-bold text-white mb-2 text-sm">{faq.q}</h3>
-                <p className="text-dark-text text-sm leading-relaxed">{faq.a}</p>
+                <h3 className="font-semibold text-white text-sm mb-1.5">{faq.q}</h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <p className="text-dark-text mb-4">Have more questions?</p>
-            <Link to="/contact" className="cyber-btn-primary">Contact Our Sales Team</Link>
+
+          <div className="text-center mt-12 p-8 rounded-2xl bg-[#0B101E]/60 border border-white/10">
+            <h4 className="font-bold text-white text-base mb-1">Require a custom enterprise deployment?</h4>
+            <p className="text-slate-400 text-xs mb-4">Dedicated SOC instances, air-gapped support, and custom SLAs available.</p>
+            <Link to="/contact" className="cyber-btn-primary text-xs py-2.5 px-6 font-bold shadow-glow-blue inline-flex items-center gap-2">
+              <span>Speak with Security Architect</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

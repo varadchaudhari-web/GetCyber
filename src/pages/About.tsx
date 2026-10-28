@@ -5,36 +5,36 @@ import { initTiltCards } from "@/lib/effects/tiltCards";
 import { initReveals } from "@/lib/effects/reveals";
 
 const values = [
-  { icon: Shield, title: "Security First", desc: "We apply the same security standards to ourselves that we recommend to our customers.", color: "text-cyber-blue", glow: "rgba(77, 141, 255, 0.25)" },
-  { icon: Target, title: "Mission Driven", desc: "Our mission is to make enterprise-grade security accessible to every organization.", color: "text-cyber-red", glow: "rgba(239, 68, 68, 0.25)" },
-  { icon: Globe, title: "Global Impact", desc: "Protecting organizations across 180+ countries from modern cyber threats.", color: "text-cyber-green", glow: "rgba(49, 208, 170, 0.25)" },
-  { icon: Heart, title: "Customer Obsession", desc: "Every feature we build is driven by the real-world needs of security professionals.", color: "text-cyber-purple", glow: "rgba(167, 123, 255, 0.25)" },
+  { icon: Shield, title: "Security First", desc: "We enforce the same zero-trust standards on our platform that we advocate for global customers.", color: "text-cyber-blue", glow: "rgba(37, 99, 235, 0.25)" },
+  { icon: Target, title: "Mission Driven", desc: "Democratizing defense so that mid-market enterprises have the same defensive armor as nation-states.", color: "text-cyber-red", glow: "rgba(239, 68, 68, 0.25)" },
+  { icon: Globe, title: "Global Impact", desc: "Safeguarding infrastructure, data vaults, and endpoints across 180+ sovereign regions.", color: "text-cyber-green", glow: "rgba(34, 197, 94, 0.25)" },
+  { icon: Heart, title: "Practitioner Obsession", desc: "Engineered by red-teamers and SOC leaders for real-world analyst efficiency.", color: "text-cyber-purple", glow: "rgba(139, 92, 246, 0.25)" },
 ];
 
 const timeline = [
-  { year: "2022", event: "GetCyber founded by ex-NSA, Google, and Mandiant security engineers." },
-  { year: "2023", event: "Launched Vulnerability Assessment and Threat Intelligence modules. Reached 500 customers." },
-  { year: "2024", event: "Raised $48M Series B. Launched AI Security Assistant (GC-AI) and Compliance Automation." },
-  { year: "2025", event: "Expanded to 180+ countries. Achieved SOC 2 Type II and ISO 27001 certifications." },
-  { year: "2026", event: "Reached 10,000+ organizations. Named Gartner Leader and G2 Top Rated Platform." },
+  { year: "2022", event: "GetCyber founded by former NSA, Google, and Mandiant senior security engineers." },
+  { year: "2023", event: "Shipped Autonomous Vulnerability Scanner and Global Threat Stream. Reached 500 enterprise customers." },
+  { year: "2024", event: "Secured $48M Series B. Integrated GC-AI Copilot and automated ISO 27001 evidence generation." },
+  { year: "2025", event: "Expanded points of presence to 180+ regions. Achieved SOC 2 Type II, ISO 27001, and HIPAA certifications." },
+  { year: "2026", event: "Protected 10,000+ organizations. Recognized as a market leader in Autonomous SecOps." },
 ];
 
 const awards = [
-  "Gartner Peer Insights 4.8 Stars",
-  "G2 Leader 2026",
-  "Forrester Wave Leader",
-  "SC Media Award 2026",
+  "Gartner Peer Insights 4.8★",
+  "G2 Enterprise Leader 2026",
+  "SC Media Award Winner",
   "Inc 5000 Fastest Growing",
-  "CISA Recognized",
+  "CISA Framework Aligned",
   "SOC 2 Type II Certified",
-  "ISO 27001 Certified",
+  "ISO 27001:2022 Certified",
+  "FIPS 140-3 Cryptographic Core",
 ];
 
 const pressItems = [
-  { outlet: "TechCrunch", headline: "GetCyber raises $48M to bring enterprise security to every business", date: "March 2024", glow: "rgba(49, 208, 170, 0.22)" },
-  { outlet: "Forbes", headline: "The startup making NSA-grade security affordable for SMBs", date: "August 2024", glow: "rgba(77, 141, 255, 0.22)" },
-  { outlet: "Dark Reading", headline: "GetCyber's AI assistant changes how analysts investigate threats", date: "January 2025", glow: "rgba(167, 123, 255, 0.22)" },
-  { outlet: "SC Media", headline: "GetCyber named Best Enterprise Security Platform 2026", date: "June 2026", glow: "rgba(245, 158, 11, 0.22)" },
+  { outlet: "TechCrunch", headline: "GetCyber secures $48M to bring autonomous SOC defense to every business", date: "March 2024", glow: "rgba(34, 197, 94, 0.22)" },
+  { outlet: "Forbes", headline: "The startup making military-grade cybersecurity accessible to commercial enterprises", date: "August 2024", glow: "rgba(37, 99, 235, 0.22)" },
+  { outlet: "Dark Reading", headline: "How GetCyber's GC-AI engine cuts Mean Time to Remediate by 86%", date: "January 2025", glow: "rgba(139, 92, 246, 0.22)" },
+  { outlet: "SC Media", headline: "GetCyber awarded Best Enterprise Threat Management Platform 2026", date: "June 2026", glow: "rgba(245, 158, 11, 0.22)" },
 ];
 
 export default function About() {
@@ -51,60 +51,73 @@ export default function About() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 bg-[#070b16]">
+    <div className="min-h-screen pt-28 pb-20 bg-[#05070F] text-slate-100 relative overflow-hidden">
+      {/* Background ambient glows */}
+      <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-cyber-blue/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 right-10 w-[450px] h-[450px] bg-cyber-green/10 rounded-full blur-[130px] pointer-events-none" />
+
       {/* Hero */}
-      <section className="py-12 sm:py-16 text-center relative overflow-hidden" id="hero">
-        <div className="absolute inset-0 bg-glow-blue opacity-20 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Our Story</p>
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-6 break-words">Making Cybersecurity Accessible to All</h1>
-          <p className="text-dark-text text-sm sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed break-words">
-            GetCyber was founded in 2022 by a team of former NSA, Google, and Mandiant security experts who believed that enterprise-grade cybersecurity should not be limited to Fortune 500 companies.
+      <section className="py-12 sm:py-16 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-4 header-reveal">
+          <span className="text-xs font-mono uppercase tracking-wider text-cyber-blue font-semibold bg-cyber-blue/10 border border-cyber-blue/30 px-3 py-1 rounded-full">
+            Our Origin & Mission
+          </span>
+          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight mt-4 mb-4">
+            Democratizing Enterprise Cyber Defense
+          </h1>
+          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Founded by veteran intelligence community researchers and tech architects who believe modern attack surfaces require machine-speed autonomous response.
           </p>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-12 bg-dark-surface border-y border-dark-border" id="stats">
+      {/* Stats Counter Bar */}
+      <section className="py-12 border-y border-white/10 bg-[#080D1A]/50 relative z-10">
         <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
             {[
-              { value: "2022", label: "Founded", color: "text-cyber-blue" },
-              { value: "10,000+", label: "Customers", color: "text-cyber-green" },
-              { value: "180+", label: "Countries", color: "text-cyber-purple" },
-              { value: "$48M", label: "Series B Raised", color: "text-cyber-yellow" },
+              { value: "2022", label: "Founded in SF", color: "text-cyber-blue" },
+              { value: "10,000+", label: "Active Deployments", color: "text-cyber-green" },
+              { value: "180+", label: "Countries Covered", color: "text-cyber-purple" },
+              { value: "$48M", label: "Series B Capital", color: "text-cyber-yellow" },
             ].map((s) => (
               <div
                 key={s.label}
                 data-tilt-card
-                data-glow="rgba(77, 141, 255, 0.25)"
-                className="tilt-card p-4 rounded-xl bg-dark-card/40 border border-white/5 cursor-pointer"
+                className="tilt-card p-5 rounded-2xl bg-[#0B101E]/80 border border-white/10 hover:border-cyber-blue/40 shadow-xl transition-all"
               >
-                <p className={`tilt-title text-4xl font-black ${s.color}`}>{s.value}</p>
-                <p className="text-dark-text mt-1">{s.label}</p>
+                <p className={`font-display text-3xl sm:text-4xl font-extrabold ${s.color} font-mono`}>{s.value}</p>
+                <p className="text-slate-300 text-xs sm:text-sm mt-1">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mission */}
-      <section className="py-20" id="mission">
+      {/* Mission & Core Values */}
+      <section className="py-20 relative z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-black text-white mb-6 header-reveal">Our Mission</h2>
-              <p className="text-dark-text leading-relaxed mb-4">
-                Cyber threats do not discriminate. A mid-size hospital faces the same ransomware gangs as a Fortune 500 bank. A government agency faces the same APT groups as a tech unicorn. Yet the security tools available to protect them are vastly different.
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5">
+              <span className="text-xs font-mono uppercase tracking-wider text-cyber-green font-semibold bg-cyber-green/10 border border-cyber-green/30 px-3 py-1 rounded-full">
+                Core Philosophy
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">
+                Asymmetric Threat Landscape Demands Unified Defense
+              </h2>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                Cyber adversaries do not respect corporate perimeters or budget constraints. A regional hospital faces the exact same automated ransomware syndicates as a Tier-1 financial institution.
               </p>
-              <p className="text-dark-text leading-relaxed mb-6">
-                GetCyber was built to change this. By combining AI, automation, and deep security expertise into one unified platform, we empower every organization — regardless of size or budget — to defend against modern cyber threats.
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                GetCyber eliminates defensive friction by blending neural attack graph correlation, push-button SOAR playbooks, and continuous compliance into one accessible command console.
               </p>
-              <Link to="/register" className="cyber-btn-primary inline-flex items-center gap-2">
-                Join the Mission <ArrowRight className="w-4 h-4" />
+              <Link to="/register" className="cyber-btn-primary inline-flex items-center gap-2 text-xs sm:text-sm py-2.5 px-6 font-bold shadow-glow-blue">
+                <span>Join the Mission</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {values.map((v) => {
                 const Icon = v.icon;
                 return (
@@ -112,11 +125,11 @@ export default function About() {
                     key={v.title}
                     data-tilt-card
                     data-glow={v.glow}
-                    className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                    className="tilt-card p-5 rounded-[22px] bg-[#0B101E]/85 border border-white/10 hover:border-white/25 transition-all shadow-xl"
                   >
                     <Icon className={`w-6 h-6 ${v.color} mb-3`} />
-                    <h3 className="tilt-title font-bold text-white text-sm mb-2">{v.title}</h3>
-                    <p className="text-dark-text text-xs leading-relaxed">{v.desc}</p>
+                    <h3 className="font-display text-base font-bold text-white mb-1.5">{v.title}</h3>
+                    <p className="text-slate-300 text-xs leading-relaxed">{v.desc}</p>
                   </div>
                 );
               })}
@@ -125,92 +138,74 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 bg-dark-surface border-y border-dark-border" id="timeline">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Historical Journey Timeline */}
+      <section className="py-20 border-y border-white/10 bg-[#080D1A]/50 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 header-reveal">
-            <h2 className="text-4xl font-black text-white mb-4">Our Journey</h2>
-            <p className="text-dark-text">From a small team of security researchers to a global cybersecurity platform.</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">Our Execution Journey</h2>
+            <p className="text-slate-400 text-sm">Milestones in engineering autonomous cybersecurity infrastructure.</p>
           </div>
-          <div className="relative">
-            <div className="absolute left-[120px] top-0 bottom-0 w-px bg-dark-border hidden sm:block" />
-            <div className="space-y-6">
-              {timeline.map((item) => (
-                <div key={item.year} className="flex gap-6 items-start">
-                  <div className="w-[100px] sm:w-[120px] flex-shrink-0 text-right">
-                    <span className="text-cyber-blue font-bold text-sm font-mono">{item.year}</span>
-                  </div>
-                  <div className="hidden sm:flex w-5 h-5 rounded-full bg-cyber-blue/20 border border-cyber-blue/60 flex-shrink-0 mt-0.5 items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-cyber-blue" />
-                  </div>
-                  <div
-                    data-tilt-card
-                    data-glow="rgba(77, 141, 255, 0.2)"
-                    className="tilt-card glass-card p-4 flex-1 cursor-pointer shadow-md"
-                  >
-                    <p className="text-dark-text-bright text-sm leading-relaxed">{item.event}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Awards */}
-      <section className="py-20" id="awards">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-black text-white mb-3 header-reveal">Recognition</h2>
-          <p className="text-dark-text mb-10">Industry recognition from the world's leading analyst firms.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {awards.map((award) => (
+          <div className="space-y-4">
+            {timeline.map((item) => (
               <div
-                key={award}
+                key={item.year}
                 data-tilt-card
-                data-glow="rgba(245, 158, 11, 0.25)"
-                className="tilt-card glass-card p-4 text-center cursor-pointer shadow-md"
+                className="tilt-card p-4 sm:p-5 rounded-2xl bg-[#0B101E]/80 border border-white/10 flex items-start gap-4 shadow-lg hover:border-cyber-blue/30 transition-all"
               >
-                <Award className="w-5 h-5 text-cyber-yellow mx-auto mb-2" />
-                <p className="text-dark-text-bright text-xs font-medium">{award}</p>
+                <div className="w-16 sm:w-20 flex-shrink-0">
+                  <span className="text-cyber-blue font-mono font-bold text-sm bg-cyber-blue/10 border border-cyber-blue/30 px-2.5 py-1 rounded-lg inline-block">
+                    {item.year}
+                  </span>
+                </div>
+                <p className="text-slate-200 text-xs sm:text-sm leading-relaxed">{item.event}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Press */}
-      <section className="py-20 bg-dark-surface border-y border-dark-border" id="press">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Industry Validation & Recognition */}
+      <section className="py-20 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+            Industry Recognition
+          </h2>
+          <p className="text-slate-400 text-sm mb-10">Peer-reviewed and certified by international standards bodies.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            {awards.map((award) => (
+              <div
+                key={award}
+                data-tilt-card
+                className="tilt-card p-4 rounded-xl bg-[#0B101E] border border-white/10 text-center shadow-lg hover:border-cyber-yellow/40 transition-all"
+              >
+                <Award className="w-5 h-5 text-cyber-yellow mx-auto mb-2" />
+                <p className="text-slate-200 text-xs font-semibold">{award}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Press Mentions */}
+      <section className="py-20 border-t border-white/10 bg-[#080D1A]/50 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 header-reveal">
-            <h2 className="text-3xl font-black text-white mb-3">In The Press</h2>
-            <p className="text-dark-text">What the media is saying about GetCyber.</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">In The Press</h2>
+            <p className="text-slate-400 text-sm">Coverage of GetCyber's research and autonomous defense architecture.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {pressItems.map((item) => (
               <div
                 key={item.headline}
                 data-tilt-card
-                data-glow={item.glow}
-                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                className="tilt-card p-5 rounded-2xl bg-[#0B101E]/90 border border-white/10 shadow-lg hover:border-cyber-blue/40 transition-all"
               >
-                <p className="text-xs font-bold text-cyber-blue uppercase tracking-wider mb-2">{item.outlet}</p>
-                <p className="tilt-title text-white font-semibold text-sm leading-snug mb-2">{item.headline}</p>
-                <p className="text-xs text-dark-text">{item.date}</p>
+                <p className="text-[11px] font-mono font-bold text-cyber-blue uppercase tracking-wider mb-1.5">{item.outlet}</p>
+                <h4 className="font-display font-semibold text-white text-sm leading-snug mb-2">"{item.headline}"</h4>
+                <p className="text-[10px] text-slate-400 font-mono">{item.date}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Careers CTA */}
-      <section className="py-16" id="careers-cta">
-        <div className="max-w-3xl mx-auto px-4 text-center header-reveal">
-          <Users className="w-10 h-10 text-cyber-blue mx-auto mb-4" />
-          <h2 className="text-3xl font-black text-white mb-4">Join Our Team</h2>
-          <p className="text-dark-text mb-6">Help us build the future of cybersecurity. We are hiring security engineers, researchers, and product managers worldwide.</p>
-          <Link to="/careers" className="cyber-btn-primary inline-flex items-center gap-2">
-            View Open Positions <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
       </section>
     </div>

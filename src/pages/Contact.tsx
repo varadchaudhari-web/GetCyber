@@ -25,97 +25,170 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-24 bg-[#070b16]">
-      <section className="py-12 sm:py-16 text-center">
+    <div className="min-h-screen pt-28 pb-24 bg-[#05070F] text-dark-text-bright relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyber-blue/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 -right-40 w-96 h-96 bg-cyber-teal/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+
+      <section className="py-12 sm:py-16 text-center relative z-10">
         <div className="max-w-3xl mx-auto px-4 header-reveal">
-          <p className="text-cyber-blue text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2 sm:mb-3">Contact Us</p>
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-black text-white mb-3 sm:mb-4 break-words">Get In Touch</h1>
-          <p className="text-dark-text text-sm sm:text-lg md:text-xl break-words">Talk to our security experts, request a demo, or get help with your account.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-blue/10 border border-cyber-blue/20 text-cyber-blue text-xs font-semibold uppercase tracking-wider mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse" />
+            Get In Touch
+          </div>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white mb-4 tracking-tight">
+            Connect With Our <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-cyber-blue via-cyber-teal to-cyber-green bg-clip-text text-transparent">
+              Security Operations Experts
+            </span>
+          </h1>
+          <p className="text-dark-text text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Request an enterprise architecture review, book a private SOC demo, or speak with an on-call security engineer.
+          </p>
         </div>
       </section>
 
-      <section className="pb-20">
+      <section className="pb-20 relative z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-            {/* Contact Info */}
-            <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            {/* Contact Info Cards */}
+            <div className="space-y-4">
               <div
                 data-tilt-card
-                data-glow="rgba(77, 141, 255, 0.25)"
-                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                data-glow="rgba(56, 122, 255, 0.3)"
+                className="tilt-card p-6 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 hover:border-cyber-blue/40 shadow-xl transition-all duration-300 group hover:-translate-y-1"
               >
-                <Mail className="w-5 h-5 text-cyber-blue mb-3" />
-                <h3 className="tilt-title font-bold text-white mb-1">Email Us</h3>
-                <a href="mailto:security@getcyber.io" className="text-cyber-blue text-sm hover:underline">security@getcyber.io</a>
-                <p className="text-dark-text text-xs mt-1">Response within 4 hours</p>
+                <div className="w-10 h-10 rounded-xl bg-cyber-blue/10 border border-cyber-blue/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Mail className="w-5 h-5 text-cyber-blue" />
+                </div>
+                <h3 className="tilt-title font-display font-bold text-white text-base mb-1">Email Us</h3>
+                <a href="mailto:security@getcyber.io" className="text-cyber-blue text-sm hover:underline font-mono">security@getcyber.io</a>
+                <p className="text-dark-text text-xs mt-1">Guaranteed response within 4 hours</p>
               </div>
+
               <div
                 data-tilt-card
-                data-glow="rgba(49, 208, 170, 0.25)"
-                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                data-glow="rgba(34, 197, 94, 0.3)"
+                className="tilt-card p-6 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 hover:border-cyber-green/40 shadow-xl transition-all duration-300 group hover:-translate-y-1"
               >
-                <Phone className="w-5 h-5 text-cyber-green mb-3" />
-                <h3 className="tilt-title font-bold text-white mb-1">Call Us</h3>
-                <a href="tel:+18005551234" className="text-dark-text-bright text-sm">+1 (800) 555-CYBER</a>
-                <p className="text-dark-text text-xs mt-1">Mon–Fri 9am–6pm PT</p>
+                <div className="w-10 h-10 rounded-xl bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Phone className="w-5 h-5 text-cyber-green" />
+                </div>
+                <h3 className="tilt-title font-display font-bold text-white text-base mb-1">Direct Call</h3>
+                <a href="tel:+18005551234" className="text-dark-text-bright text-sm font-mono">+1 (800) 555-CYBER</a>
+                <p className="text-dark-text text-xs mt-1">Mon–Fri 9am–6pm PT (Global Lines)</p>
               </div>
+
               <div
                 data-tilt-card
-                data-glow="rgba(167, 123, 255, 0.25)"
-                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                data-glow="rgba(167, 123, 255, 0.3)"
+                className="tilt-card p-6 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 hover:border-cyber-purple/40 shadow-xl transition-all duration-300 group hover:-translate-y-1"
               >
-                <MapPin className="w-5 h-5 text-cyber-purple mb-3" />
-                <h3 className="tilt-title font-bold text-white mb-1">Our Office</h3>
-                <p className="text-dark-text text-sm">101 Security Blvd, Suite 500<br />San Francisco, CA 94105</p>
+                <div className="w-10 h-10 rounded-xl bg-cyber-purple/10 border border-cyber-purple/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <MapPin className="w-5 h-5 text-cyber-purple" />
+                </div>
+                <h3 className="tilt-title font-display font-bold text-white text-base mb-1">Global Headquarters</h3>
+                <p className="text-dark-text text-sm leading-relaxed">101 Security Blvd, Suite 500<br />San Francisco, CA 94105</p>
               </div>
+
               <div
                 data-tilt-card
-                data-glow="rgba(245, 158, 11, 0.25)"
-                className="tilt-card glass-card p-5 cursor-pointer shadow-lg"
+                data-glow="rgba(245, 158, 11, 0.3)"
+                className="tilt-card p-6 rounded-[22px] bg-[#0B101E]/80 backdrop-blur-xl border border-white/10 hover:border-cyber-yellow/40 shadow-xl transition-all duration-300 group hover:-translate-y-1"
               >
-                <Building2 className="w-5 h-5 text-cyber-yellow mb-3" />
-                <h3 className="tilt-title font-bold text-white mb-1">Enterprise Sales</h3>
-                <a href="mailto:enterprise@getcyber.io" className="text-cyber-yellow text-sm hover:underline">enterprise@getcyber.io</a>
-                <p className="text-dark-text text-xs mt-1">Custom pricing & deployment</p>
+                <div className="w-10 h-10 rounded-xl bg-cyber-yellow/10 border border-cyber-yellow/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Building2 className="w-5 h-5 text-cyber-yellow" />
+                </div>
+                <h3 className="tilt-title font-display font-bold text-white text-base mb-1">Enterprise Advisory</h3>
+                <a href="mailto:enterprise@getcyber.io" className="text-cyber-yellow text-sm hover:underline font-mono">enterprise@getcyber.io</a>
+                <p className="text-dark-text text-xs mt-1">Dedicated solutions architects & SLAs</p>
               </div>
             </div>
 
             {/* Contact Form */}
             <div
               data-tilt-card
-              data-glow="rgba(77, 141, 255, 0.22)"
-              className="tilt-card lg:col-span-2 glass-card p-8 shadow-2xl"
+              data-glow="rgba(56, 122, 255, 0.25)"
+              className="tilt-card lg:col-span-2 p-8 sm:p-10 rounded-[24px] bg-[#0B101E]/90 backdrop-blur-2xl border border-white/10 shadow-2xl relative"
             >
               {!submitted ? (
                 <>
-                  <h2 className="tilt-title text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-cyber-blue" /> Send a Message
+                  <h2 className="tilt-title text-2xl font-display font-bold text-white mb-2 flex items-center gap-2.5">
+                    <MessageSquare className="w-6 h-6 text-cyber-blue" /> Send a Direct Transmission
                   </h2>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div><label className="label-cyber">Full Name</label><input value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} className="input-cyber" placeholder="Alex Morgan" required /></div>
-                      <div><label className="label-cyber">Work Email</label><input type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} className="input-cyber" placeholder="alex@company.com" required /></div>
+                  <p className="text-dark-text text-sm mb-8">
+                    Fill out the fields below and our SOC dispatch will route your message to the appropriate engineer.
+                  </p>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="label-cyber text-xs uppercase font-mono tracking-wider">Full Name</label>
+                        <input
+                          value={form.name}
+                          onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                          className="input-cyber bg-[#05070F]/80 border-white/10 rounded-xl"
+                          placeholder="Alex Morgan"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="label-cyber text-xs uppercase font-mono tracking-wider">Work Email</label>
+                        <input
+                          type="email"
+                          value={form.email}
+                          onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+                          className="input-cyber bg-[#05070F]/80 border-white/10 rounded-xl"
+                          placeholder="alex@company.com"
+                          required
+                        />
+                      </div>
                     </div>
-                    <div><label className="label-cyber">Company</label><input value={form.company} onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))} className="input-cyber" placeholder="TechCorp Inc." /></div>
-                    <div><label className="label-cyber">Subject</label>
-                      <select className="input-cyber">
-                        <option>Request a Demo</option>
-                        <option>Sales Inquiry</option>
-                        <option>Technical Support</option>
-                        <option>Partnership</option>
-                        <option>Other</option>
+                    <div>
+                      <label className="label-cyber text-xs uppercase font-mono tracking-wider">Company / Organization</label>
+                      <input
+                        value={form.company}
+                        onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
+                        className="input-cyber bg-[#05070F]/80 border-white/10 rounded-xl"
+                        placeholder="Acme Financial Corp"
+                      />
+                    </div>
+                    <div>
+                      <label className="label-cyber text-xs uppercase font-mono tracking-wider">Inquiry Topic</label>
+                      <select className="input-cyber bg-[#05070F]/80 border-white/10 rounded-xl text-dark-text-bright">
+                        <option>Request an Enterprise Demo</option>
+                        <option>SOC Command Center Licensing</option>
+                        <option>Technical Architecture Review</option>
+                        <option>Compliance Audit Acceleration</option>
+                        <option>Integration & API Support</option>
                       </select>
                     </div>
-                    <div><label className="label-cyber">Message</label><textarea value={form.message} onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))} className="input-cyber min-h-[140px] resize-none" placeholder="Tell us how we can help..." required /></div>
-                    <button type="submit" className="cyber-btn-primary w-full py-3">Send Message</button>
+                    <div>
+                      <label className="label-cyber text-xs uppercase font-mono tracking-wider">Message</label>
+                      <textarea
+                        value={form.message}
+                        onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
+                        className="input-cyber min-h-[140px] resize-none bg-[#05070F]/80 border-white/10 rounded-xl"
+                        placeholder="Tell us about your infrastructure scope, compliance needs, or threat hunting requirements..."
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="cyber-btn-primary w-full py-3.5 rounded-xl font-semibold shadow-glow-blue">
+                      Transmit Secure Message
+                    </button>
                   </form>
                 </>
               ) : (
-                <div className="text-center py-12">
-                  <CheckCircle className="w-16 h-16 text-cyber-green mx-auto mb-4" />
-                  <h3 className="tilt-title text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                  <p className="text-dark-text mb-4">Thank you, {form.name}. Our team will respond within 4 business hours.</p>
-                  <button onClick={() => setSubmitted(false)} className="cyber-btn-secondary">Send Another Message</button>
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 rounded-full bg-cyber-green/10 border border-cyber-green/30 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-8 h-8 text-cyber-green" />
+                  </div>
+                  <h3 className="tilt-title text-2xl font-display font-bold text-white mb-2">Transmission Received</h3>
+                  <p className="text-dark-text max-w-md mx-auto mb-6 text-sm">
+                    Thank you, {form.name}. A GetCyber enterprise security engineer has been notified and will respond to {form.email} within 4 hours.
+                  </p>
+                  <button onClick={() => setSubmitted(false)} className="cyber-btn-secondary text-xs py-2.5 px-6 rounded-xl">
+                    Send Another Transmission
+                  </button>
                 </div>
               )}
             </div>
@@ -123,18 +196,28 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Emergency */}
-      <section className="py-12 bg-dark-surface border-t border-dark-border">
-        <div className="max-w-3xl mx-auto px-4 text-center header-reveal">
-          <div className="inline-flex items-center gap-2 bg-cyber-red/10 border border-cyber-red/30 px-4 py-2 rounded-full mb-4">
-            <Shield className="w-4 h-4 text-cyber-red animate-pulse" />
-            <span className="text-cyber-red font-semibold text-sm">Security Emergency?</span>
+      {/* Emergency Hotline */}
+      <section className="py-14 relative z-10">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="p-8 sm:p-10 rounded-[24px] bg-cyber-red/5 border border-cyber-red/25 backdrop-blur-2xl text-center relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyber-red/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="max-w-2xl mx-auto header-reveal relative z-10">
+              <div className="inline-flex items-center gap-2 bg-cyber-red/15 border border-cyber-red/30 px-3.5 py-1.5 rounded-full mb-3">
+                <Shield className="w-4 h-4 text-cyber-red animate-pulse" />
+                <span className="text-cyber-red font-semibold text-xs uppercase tracking-wider font-mono">24/7 Incident Hotline</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white mb-3">Active Breach or Ransomware Emergency?</h2>
+              <p className="text-dark-text text-sm sm:text-base mb-6 leading-relaxed">
+                If your organization is currently experiencing an unauthorized intrusion or ransomware extortion, contact our 24/7 global rapid response unit immediately.
+              </p>
+              <a
+                href="tel:+18005550911"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-cyber-red text-white font-bold text-sm hover:bg-cyber-red/90 transition-colors shadow-lg shadow-cyber-red/30"
+              >
+                <Phone className="w-4 h-4 animate-bounce" /> +1 (800) 555-0911 — Emergency SOC Dispatch
+              </a>
+            </div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-3">24/7 Incident Response Hotline</h2>
-          <p className="text-dark-text mb-4">Active breach or ransomware attack? Our emergency response team is available 24/7.</p>
-          <a href="tel:+18005550911" className="cyber-btn-danger inline-flex items-center gap-2 text-cyber-red">
-            <Phone className="w-4 h-4" /> +1 (800) 555-0911 — Emergency Response
-          </a>
         </div>
       </section>
     </div>

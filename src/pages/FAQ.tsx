@@ -15,23 +15,57 @@ const faqs = [
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <div className="min-h-screen pt-24">
-      <section className="py-16 text-center">
+    <div className="min-h-screen pt-28 pb-24 bg-[#05070F] text-dark-text-bright relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyber-blue/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+
+      <section className="py-12 sm:py-16 text-center relative z-10">
         <div className="max-w-3xl mx-auto px-4">
-          <HelpCircle className="w-12 h-12 text-cyber-blue mx-auto mb-4" />
-          <h1 className="text-5xl font-black text-white mb-4">Frequently Asked Questions</h1>
-          <p className="text-dark-text text-xl">Everything you need to know about GetCyber.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-blue/10 border border-cyber-blue/20 text-cyber-blue text-xs font-semibold uppercase tracking-wider mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse" />
+            Knowledge Base & Answers
+          </div>
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white mb-4 tracking-tight">
+            Frequently Asked <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-cyber-blue via-cyber-teal to-cyber-green bg-clip-text text-transparent">
+              Questions
+            </span>
+          </h1>
+          <p className="text-dark-text text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Everything you need to know about GetCyber architecture, security certifications, pricing, and enterprise deployment.
+          </p>
         </div>
       </section>
-      <section className="pb-20">
-        <div className="max-w-3xl mx-auto px-4 space-y-3">
+
+      <section className="pb-20 relative z-10">
+        <div className="max-w-3xl mx-auto px-4 space-y-3.5">
           {faqs.map((faq, i) => (
-            <div key={i} className="glass-card overflow-hidden">
-              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between p-5 text-left">
-                <span className="font-semibold text-white text-sm pr-4">{faq.q}</span>
-                <span className="text-cyber-blue text-xl flex-shrink-0">{open === i ? "−" : "+"}</span>
+            <div
+              key={i}
+              className={`rounded-[20px] transition-all duration-300 border backdrop-blur-xl ${
+                open === i
+                  ? "bg-[#0B101E]/95 border-cyber-blue/40 shadow-xl shadow-cyber-blue/5"
+                  : "bg-[#0B101E]/75 border-white/10 hover:border-white/20"
+              }`}
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between p-5 sm:p-6 text-left group"
+              >
+                <span className="font-display font-semibold text-white text-base sm:text-lg pr-4 group-hover:text-cyber-blue transition-colors">
+                  {faq.q}
+                </span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-mono flex-shrink-0 transition-transform ${
+                  open === i ? "bg-cyber-blue text-white rotate-180" : "bg-white/5 text-dark-text group-hover:text-white"
+                }`}>
+                  {open === i ? "−" : "+"}
+                </span>
               </button>
-              {open === i && <div className="px-5 pb-5 text-dark-text text-sm leading-relaxed border-t border-dark-border pt-4">{faq.a}</div>}
+              {open === i && (
+                <div className="px-5 sm:px-6 pb-6 text-dark-text text-sm sm:text-base leading-relaxed border-t border-white/5 pt-4">
+                  {faq.a}
+                </div>
+              )}
             </div>
           ))}
         </div>

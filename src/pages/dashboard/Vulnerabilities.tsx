@@ -291,30 +291,43 @@ export default function Vulnerabilities() {
       </Modal>
 
       {/* Scan Modal */}
-      <Modal isOpen={showScanModal} onClose={() => setShowScanModal(false)} title="Launch Vulnerability Scan" size="md">
+      <Modal isOpen={showScanModal} onClose={() => setShowScanModal(false)} title="Launch Vulnerability Scan & Assessment" size="md">
         <div className="space-y-4">
-          <p className="text-dark-text text-sm">Configure and launch an automated vulnerability scan across your assets.</p>
+          <p className="text-dark-text text-sm">
+            Configure automated security scanning across web, cloud, network, APIs, and mobile endpoints (Section 2.3).
+          </p>
           <div>
-            <label className="label-cyber">Scan Target</label>
+            <label className="label-cyber">Scan Assessment Type</label>
             <select className="input-cyber">
-              <option>webapp-portal.techcorp.com (Web App)</option>
-              <option>api.techcorp.com (API)</option>
-              <option>prod-server-01 (Server)</option>
-              <option>All Production Assets</option>
+              <option value="website">Website Vulnerability Scan (OWASP Top 10, XSS, SQLi)</option>
+              <option value="network">Network Scan (Port enumeration, lateral paths, firewall)</option>
+              <option value="server">Server Security Assessment (Linux/Windows OS hardening)</option>
+              <option value="cloud">Cloud Security Scan (AWS / Azure / GCP IAM & S3 misconfigs)</option>
+              <option value="api">API Security Testing (REST / GraphQL authentication & IDOR)</option>
+              <option value="mobile">Mobile App Security Scan (iOS & Android APK static/dynamic)</option>
+              <option value="config">Configuration Assessment (CIS Benchmark drift analysis)</option>
             </select>
           </div>
           <div>
-            <label className="label-cyber">Scan Profile</label>
+            <label className="label-cyber">Target Asset / Hostname</label>
+            <input
+              type="text"
+              defaultValue="webapp-portal.techcorp.com"
+              className="input-cyber text-sm font-mono"
+              placeholder="e.g. api.techcorp.com or 192.168.1.0/24"
+            />
+          </div>
+          <div>
+            <label className="label-cyber">Assessment Depth</label>
             <select className="input-cyber">
-              <option>Quick Scan (5 min)</option>
-              <option>Standard Scan (30 min)</option>
-              <option>Full Assessment (2 hours)</option>
-              <option>OWASP Top 10 Only</option>
+              <option>Quick Scan (5 min — Critical vulnerabilities)</option>
+              <option>Standard Deep Audit (30 min — Full vulnerability & exploit check)</option>
+              <option>Full Comprehensive Assessment (2 hours — DAST + SAST + Config)</option>
             </select>
           </div>
           <div className="flex gap-3 mt-4">
             <button onClick={handleScan} className="cyber-btn-green flex-1 flex items-center justify-center gap-2">
-              <Play className="w-4 h-4" /> Start Scan
+              <Play className="w-4 h-4" /> Launch Scan Engine
             </button>
             <button onClick={() => setShowScanModal(false)} className="cyber-btn-secondary flex-1">Cancel</button>
           </div>

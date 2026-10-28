@@ -33,7 +33,9 @@ export default function Modal({
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -57,32 +59,44 @@ export default function Modal({
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 perspective-1200"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      {/* Backdrop blur */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-fade-in" />
+
+      {/* 3D Glassmorphic Modal Window */}
       <div
         className={cn(
-          "relative w-full glass-card flex flex-col max-h-[90vh] animate-slide-up",
+          "relative w-full flex flex-col max-h-[90vh] rounded-[24px] bg-[#0A0F1D]/95 backdrop-blur-2xl border border-cyber-blue/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(37,99,235,0.22)] overflow-hidden animate-slide-up hover:border-cyber-blue/60 transition-all duration-300",
           sizeClasses[size],
           className
         )}
+        style={{
+          transformStyle: "preserve-3d",
+        }}
       >
+        {/* Top glowing laser line */}
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyber-blue to-transparent opacity-80" />
+
         {/* Header */}
         {(title || showClose) && (
-          <div className="flex items-start justify-between p-5 border-b border-dark-border flex-shrink-0">
+          <div className="flex items-start justify-between p-5 sm:p-6 border-b border-white/10 flex-shrink-0 bg-[#05070F]/50">
             {title && (
               <div>
-                <h2 className="text-lg font-bold text-white">{title}</h2>
-                {subtitle && <p className="text-sm text-dark-text mt-0.5">{subtitle}</p>}
+                <h2 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-cyber-blue animate-pulse" />
+                  {title}
+                </h2>
+                {subtitle && <p className="text-xs sm:text-sm text-slate-400 mt-1">{subtitle}</p>}
               </div>
             )}
             {showClose && (
               <button
                 onClick={onClose}
-                className="p-1.5 hover:bg-dark-card rounded-lg text-dark-text hover:text-white transition-all ml-4 flex-shrink-0"
+                className="p-1.5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white transition-all ml-4 flex-shrink-0 border border-white/5"
               >
                 <X className="w-4.5 h-4.5" />
               </button>
@@ -91,11 +105,13 @@ export default function Modal({
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-5">{children}</div>
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 text-slate-200">{children}</div>
 
         {/* Footer */}
         {footer && (
-          <div className="p-5 border-t border-dark-border flex-shrink-0">{footer}</div>
+          <div className="p-4 sm:p-5 border-t border-white/10 flex-shrink-0 bg-[#05070F]/60 flex items-center justify-end gap-3">
+            {footer}
+          </div>
         )}
       </div>
     </div>

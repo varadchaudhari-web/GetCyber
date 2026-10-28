@@ -19,6 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        display: ["'Space Grotesk'", "sans-serif"],
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
@@ -37,10 +38,11 @@ export default {
           orange: "#F97316",
         },
         dark: {
-          bg: "#0F172A",
-          surface: "#111827",
-          card: "#1E293B",
-          border: "#2D3748",
+          base: "#05070F",
+          bg: "#05070F",
+          surface: "#0B101E",
+          card: "#0E1527",
+          border: "#1E293B",
           "border-light": "#374151",
           muted: "#374151",
           text: "#94A3B8",
@@ -64,6 +66,8 @@ export default {
         "glass": "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
         "card": "0 4px 24px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.03)",
         "card-hover": "0 8px 40px rgba(37,99,235,0.2), 0 2px 0 rgba(37,99,235,0.1)",
+        "glow-blue": "0 0 25px rgba(37,99,235,0.45), 0 0 50px rgba(37,99,235,0.2)",
+        "glow-green": "0 0 25px rgba(34,197,94,0.45), 0 0 50px rgba(34,197,94,0.2)",
       },
       animation: {
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
